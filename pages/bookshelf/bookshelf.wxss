@@ -1,0 +1,7 @@
+/* pages/bookshelf/bookshelf.wxss */
+.scan_btn{
+  position:fixed;
+  width:80rpx;
+  height:80rpx;
+  right:20rpx;
+}
