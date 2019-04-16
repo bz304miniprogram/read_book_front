@@ -1,7 +1,31 @@
 /* pages/bookshelf/bookshelf.wxss */
+.main_head{
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+}
+.login_button{
+  display: flex;
+  align-items: center;
+}
 .scan_btn{
   position:fixed;
-  width:80rpx;
-  height:80rpx;
+  width:50rpx;
+  height:50rpx;
   right:20rpx;
+  top:10rpx;
+}
+.avater{
+  position:absolute;
+  width:140rpx;
+  height:140rpx;
+  top:300rpx;
+  right:20rpx;
+  border-radius: 30rpx;
+}
+.nickName{
+  position:absolute;
+  top:330rpx;
+  right:200rpx;
+  color:white
 }

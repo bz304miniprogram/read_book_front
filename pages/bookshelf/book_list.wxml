@@ -1,0 +1,24 @@
+<template name="item">
+  <navigator url="{{url}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+      <image class="weui-media-box__thumb" src="{{imgUrl}}" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+      <view class="weui-media-box__title">{{title}}</view>
+      <view class="weui-media-box__desc">
+        <view>作者:{{writer}}</view>
+        <view>出版社:{{publisher}}</view>
+      </view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">上次阅读</view>
+        <view class="weui-media-box__info__meta">{{lastRead}}</view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name='bookList'>
+<block wx:for='{{bookList}}'>
+<template is="item" data="{{...item}}"/>
+</block>
+</template>

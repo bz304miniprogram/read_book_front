@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/index/index",
     "pages/bookshelf/bookshelf",
-    
+    "pages/index/index",
+    "pages/bookshelf/scan",
     "pages/logs/logs"
   ],
   "window":{
@@ -10,5 +10,23 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "selectedColor":"#0d901c",
+    "list":[
+      {
+        "pagePath":"pages/bookshelf/bookshelf",
+        "text":"书架",
+        "iconPath":"pages/images/books.png",
+        "selectedIconPath":"pages/images/s_books.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "pages/images/me.png",
+        "selectedIconPath": "pages/images/s_me.png"
+      }
+
+    ]
   }
 }
