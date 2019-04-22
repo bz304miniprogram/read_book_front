@@ -9,22 +9,7 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    bookList: [{
-      url: '../images/book1.jpg',
-      imgUrl:'../images/book1.jpg',
-      title:'title',
-      writer:'writer',
-      publisher:'piblisher',
-      lastRead:'2 mins ago'
-    },
-      {
-        url: '../images/book1.jpg',
-        imgUrl: '../images/book1.jpg',
-        title: 'title',
-        writer: 'writer',
-        publisher: 'publisher',
-        lastRead: '2 mins ago',
-      }]
+    bookList: []
   },
 
   /**
@@ -51,6 +36,14 @@ Page({
         })
       }
     }
+    if (app.globalData.sessionId) {
+      this.get_bookshelf(app.globalData.sessionId)
+    } else {
+      app.sessionIdReadyCallback = res => {
+        callback: this.get_bookshelf(res.sessionId)
+      }
+    }
+
   },
 
   /**
@@ -117,9 +110,37 @@ Page({
   onShareAppMessage: function() {
 
   },
+  get_bookshelf: function(sessionId) {
+    wx.request({
+      url: 'http://127.0.0.1:8000/get_bookshelf', // code2id
+      method: "POST",
+      data: {
+        'sessionId': sessionId
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: res => {
+        console.log(res)
+        var bookList = res.data.data
+        for(var i=0;i<bookList.length;i++){
+          bookList[i]["isSearchList"] = false
+          bookList[i]["dataDic"] = JSON.stringify(bookList[i])
+        }
+        this.setData({
+          bookList: res.data.data
+        })
+      },
+      fail() {
+        console.log('get_bookshelf failed')
+      }
+    })
+  },
   scan: function() {
     console.log("scanning")
-    wx.navigateTo({url:'scan'})
+    wx.navigateTo({
+      url: 'scan'
+    })
   },
   getUserInfo: function(e) {
     console.log(e)

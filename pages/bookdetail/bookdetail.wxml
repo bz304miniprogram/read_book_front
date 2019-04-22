@@ -1,0 +1,32 @@
+<!--pages/bookdetail/bookdetail.wxml-->
+<view class="page">
+  <!-- 预览区域  -->
+  <view wx:if='{{isPreview}}' class='preview'>
+    <image src='{{posterUrl}}' mode='widthFix'></image>
+    <button class="preview_button" type='primary' size='mini' bindtap='save'>保存分享图</button>
+  </view>
+  <view class="page__hd">
+    <view class="page__hd__inner">
+      <view class="page__title">{{title}}</view>
+      <view class="page__desc">作者：{{writer}}</view>
+      <view class="page__desc">出版社：{{publisher}}</view>
+      <view class="page__desc">出版时间：{{pubTime}}</view>
+      <view class="page__desc">评分：{{rating}}</view>
+      <image class="page__img" src="{{imgUrl}}" mode="aspectFit" />
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="page__bd__inner">
+      <block wx:if="{{isSearchList}}">
+        <view class="weui-article__h1">图书简介：</view>
+        <block wx:for='{{intro}}'>
+          <view class="weui-article__p">{{item}}</view>
+        </block>
+      </block>
+      <clock catchread-success="readSuccess" catchstart-read="startRead" />
+    </view>
+  </view>
+  <button type="primary" bindtap="gen_poster">分享</button>
+</view>
+
+<canvas  canvas-id="shareImg" style="width:500px;height:800px"></canvas>

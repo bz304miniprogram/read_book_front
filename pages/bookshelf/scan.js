@@ -4,7 +4,7 @@ Page({
   data: {
     useCamera: false,
     hasResult: false,
-    bookList: [],
+    searchList: [],
   },
   onLoad: function(options) {
     wx.getSetting({
@@ -78,13 +78,19 @@ Page({
           formData: {
             sessionId: app.globalData.sessionId
           },
-          success:res=> {
+          success: res => {
             console.log(res)
+            var searchList = JSON.parse(res.data).data
+            for (var i = 0; i < searchList.length; i++){
+              searchList[i]["dataDic"] = JSON.stringify(searchList[i])
+            }
             this.setData({
-              hasResult:true,
-              bookList :JSON.parse(res.data).data
+              hasResult: true,
+              searchList: searchList,
             })
-            this.hasResult=true
+            wx.setNavigationBarTitle({
+              title: "识别结果"
+            })
             console.log(JSON.parse(res.data))
           }
 
@@ -94,6 +100,41 @@ Page({
           console.log('已经上传的数据长度', res.totalBytesSent)
           console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
         })
+      }
+    })
+  },
+  updateCheckBox(e){
+    var temp = this.data.searchList
+    console.log(e.detail)
+    temp[e.detail.index].isFirst = !temp[e.detail.index].isFirst
+    this.setData({
+      searchList : temp
+    })
+  },
+  bookshelfAdd(){
+    var chosen_books = new Array()
+    console.log(this.data.searchList)
+    var searchList = this.data.searchList
+    for(var i=0;i<searchList.length;i++)
+    {
+      if(searchList[i].isFirst)
+        chosen_books.push({
+          "sessionId":app.globalData.sessionId,
+          "imgUrl": searchList[i].imgUrl,
+          "webUrl" : searchList[i].webUrl,
+          "title":searchList[i].title,
+          "writer": searchList[i].writer,
+          "publisher":searchList[i].publisher,
+        })
+    }
+    wx.request({
+      url: 'http://127.0.0.1:8000/bookshelf_add',
+      method:"POST",
+      data:{
+        "chosen_books":chosen_books
+      },
+      success:res=>{
+        console.log(res)
       }
     })
   },

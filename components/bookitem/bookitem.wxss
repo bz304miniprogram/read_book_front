@@ -1,0 +1,10 @@
+/* component/bookitem.wxss */
+@import "../../weui.wxss";
+.weui-media-box{
+  border-bottom:1rpx solid #e5e5e5;
+}
+.delete_icon{
+  width: 50rpx;
+  height:50rpx;
+}
+

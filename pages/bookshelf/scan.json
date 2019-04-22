@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "扫一扫",
+  "usingComponents": {
+     "book-item": "../../components/bookitem/bookitem"
+  }
 }

@@ -3,6 +3,7 @@
     "pages/bookshelf/bookshelf",
     "pages/index/index",
     "pages/bookshelf/scan",
+    "pages/bookdetail/bookdetail",
     "pages/logs/logs"
   ],
   "window":{

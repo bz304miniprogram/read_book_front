@@ -1,5 +1,4 @@
 <!--pages/bookshelf/bookshelf.wxml-->
-<import src='./book_list.wxml'/>
 <view class="main_head" style="background-image:url({{background}});height:400rpx">
     <image class="avater" src="{{userInfo.avatarUrl}}"></image>
     <view class="nickName">{{userInfo.nickName}}</view>
@@ -12,7 +11,10 @@
 <!-- <view class="weui-panel__hd">
             </view> -->
 <view wx:if="{{hasUserInfo}}" class="weui-panel__bd">
-  <template is='bookList' data='{{bookList}}'/>
+  <!-- <template is='bookList' data='{{bookList}}'/> -->
+  <block wx:for='{{bookList}}'>
+    <book-item info-dic="{{item}}"/>
+  </block>
 </view>
 <view class="login_button">
 <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" type="primary" size="mini" bindgetuserinfo="getUserInfo">使用微信登录</button>

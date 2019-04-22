@@ -22,6 +22,9 @@ App({
             console.log(res.data.data.sessionId)
             this.globalData.sessionId = res.data.data.sessionId;
             this.globalData.hasSessionId = true;
+            if (this.sessionIdReadyCallback){
+              this.sessionIdReadyCallback(res.data.data)
+            }
             if(this.globalData.hasUserInfo)
               this.server_update_user()
           },

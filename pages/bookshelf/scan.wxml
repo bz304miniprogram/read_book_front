@@ -1,5 +1,4 @@
 <!--pages/bookshelf/scan.wxml-->
-<import src='./book_list.wxml'/>
 <view wx:if="{{useCamera&&!hasResult}}">
 <camera
   device-position="back"
@@ -12,6 +11,9 @@
 <image mode="widthFix" src="{{src}}"></image> -->
 </view>
 
-<view>
-  <template is='bookList' data='{{bookList}}'/>
+<view wx:if="{{hasResult}}">
+  <block wx:for="{{searchList}}" wx:key="{{searchList.index}}">
+  <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox"/>
+  </block>
+  <button type="primary" bindtap="bookshelfAdd">添加到我的书架</button>
 </view>

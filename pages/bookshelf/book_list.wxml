@@ -1,7 +1,7 @@
 <template name="item">
-  <navigator url="{{url}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+  <navigator url="../bookdetail/bookdetail?current={{dataDic}}"  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-      <image class="weui-media-box__thumb" src="{{imgUrl}}" />
+      <image class="weui-media-box__thumb" mode="aspectFit" src="{{imgUrl}}" />
     </view>
     <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
       <view class="weui-media-box__title">{{title}}</view>
@@ -9,16 +9,23 @@
         <view>作者:{{writer}}</view>
         <view>出版社:{{publisher}}</view>
       </view>
-      <view class="weui-media-box__info">
+      <view class="weui-media-box__info" wx:if="{{!isSearchList}}">
         <view class="weui-media-box__info__meta">上次阅读</view>
         <view class="weui-media-box__info__meta">{{lastRead}}</view>
       </view>
+      <view class="weui-media-box__info" wx:if="{{isSearchList}}">
+        <view class="weui-media-box__info__meta">关键字：</view>
+        <view class="weui-media-box__info__meta">{{search_string}}</view>
+      </view>
+    </view>
+    <view class="weui-media-box__hd weui-media-box__hd_right_in-appmsg" wx:if="{{isSearchList}}" bindtap=''>
+        <checkbox value="{{webUrl}}" checked="{{isFirst}}" />
     </view>
   </navigator>
 </template>
 
 <template name='bookList'>
-<block wx:for='{{bookList}}'>
-<template is="item" data="{{...item}}"/>
-</block>
+  <block wx:for='{{bookList}}'>
+    <template is="item" data="{{...item}}" />
+  </block>
 </template>

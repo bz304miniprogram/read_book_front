@@ -3,18 +3,21 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;
+  z-index: 99;
 }
 .login_button{
   display: flex;
   align-items: center;
 }
 .scan_btn{
-  position:fixed;
+  position:absolute; 
   width:50rpx;
   height:50rpx;
   right:20rpx;
   top:10rpx;
+  z-index: 100;
 }
+
 .avater{
   position:absolute;
   width:140rpx;
@@ -22,10 +25,12 @@
   top:300rpx;
   right:20rpx;
   border-radius: 30rpx;
+  z-index: 100;
 }
 .nickName{
   position:absolute;
   top:330rpx;
   right:200rpx;
-  color:white
+  color:white;
+  z-index: 100;
 }

@@ -1,0 +1,7 @@
+/* components/clock/clock.wxss */
+.format-clock{
+  text-align: center;
+  font-size: 150rpx;
+  font-weight: 400;
+  color: gray;
+}
