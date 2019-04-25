@@ -1,6 +1,6 @@
 <!--component/bookitem.wxml-->
 <block wx:if="{{!isDeleted}}">
-<navigator url="../bookdetail/bookdetail?current={{infoDic.dataDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindlongpress="onLongPress">
+<navigator url="../bookdetail/bookdetail?current={{infoDic.stringInfoDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindlongpress="onLongPress">
   <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
     <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" />
   </view>
@@ -8,7 +8,7 @@
     <view class="weui-media-box__title">{{infoDic.title}}</view>
     <view class="weui-media-box__desc">
       <view>作者:{{infoDic.writer}}</view>
-      <view>出版社:{{infoDic.publisher}}</view>
+      <view>出版:{{infoDic.publisher}}</view>
     </view>
     <view wx:if="{{!infoDic.isSearchList}}">
     <view class="weui-media-box__info" >

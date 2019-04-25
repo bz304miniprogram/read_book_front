@@ -4,10 +4,17 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    readTime:Number,
+    readTime:{
+      type:Number,
+      value:15,
+    },
+    topMessage:{
+      type:String,
+      value: "选择读书时间",
+    },
     clock: {
       type: Number,
-      value: 0,
+      value: 15,
       observer() {
         if (this.properties.clock == 0 && this.properties.isCounting == true) {
           this.setData({
@@ -23,12 +30,13 @@ Component({
     },
     formatClock: {
       type: String,
-      value: '00:00'
+      value: '00:15'
     },
     isCounting: {
       type: Boolean,
       value: false
     },
+    generating:Boolean,
     interval: Number,
     interval_s: Number,
   },
@@ -56,6 +64,7 @@ Component({
       this.triggerEvent("startRead",eventDetail)
       this.setData({
         "isCounting": true,
+        "topMessage":"离开本页面会放弃读书计划",
         "interval_s": setInterval(function() {
           var formatClock = this.properties.formatClock
           if (formatClock.indexOf(':') != -1)
@@ -82,6 +91,11 @@ Component({
       this.setData({
         "formatClock": '0' + hour + ':' + min
       })
+    },
+    genPoster(){
+      if(this.properties.generating)
+        return
+      this.triggerEvent("genPoster");
     }
   },
 

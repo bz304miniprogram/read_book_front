@@ -5,3 +5,23 @@
   font-weight: 400;
   color: gray;
 }
+.btns{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btn {
+  width: 40%;
+  margin-top: 20rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnImg {
+  margin-right: 10rpx;
+  width: 46rpx;
+}

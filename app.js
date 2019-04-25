@@ -1,5 +1,22 @@
 //app.js
+//sesisonId bind with wx.login() and app.globalData always contains sessionId and userInfo
 App({
+  server_update_user() {
+    wx.request({
+      url: this.globalData.HOST+'/update_user',
+      method: 'POST',
+      // header: {
+      //   'content-type': 'application/x-www-form-urlencoded'
+      // },
+      data: {
+        'sessionId': this.globalData.sessionId,
+        'userInfo': this.globalData.userInfo
+      },
+      complete(res) {
+        console.log(res.data.message)
+      }
+    })
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -11,7 +28,7 @@ App({
       success: res => {
         console.log(res)
         wx.request({          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          url: 'http://127.0.0.1:8000/code2id', // code2id
+          url: this.globalData.HOST+'/code2id', // code2id
           data: {
             'code': res.code
           },
@@ -19,6 +36,7 @@ App({
             'content-type': 'application/json' // 默认值
           },
           success: res => {
+            console.log("this is sessionId:")
             console.log(res.data.data.sessionId)
             this.globalData.sessionId = res.data.data.sessionId;
             this.globalData.hasSessionId = true;
@@ -58,24 +76,15 @@ App({
       }
     })
   },
-  server_update_user(){
-    wx.request({
-      url: 'http://127.0.0.1:8000/update_user',
-      method: 'POST',
-      // header: {
-      //   'content-type': 'application/x-www-form-urlencoded'
-      // },
-      data: {
-        'sessionId': this.globalData.sessionId,
-        'userInfo':this.globalData.userInfo
-      },
-      complete(res) {
-        console.log(res.data.message)
-      }
-    })
-  },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    HOST:"http://127.0.0.1:8000"
     //sessionId
-  }
+  },
+  showToast(message){
+    wx.showToast({
+      title: message,
+      icon:'none',
+    },4000)
+  },
 })

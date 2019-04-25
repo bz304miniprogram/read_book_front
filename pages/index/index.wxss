@@ -13,9 +13,30 @@
 }
 
 .userinfo-nickname {
-  color: rgb(204, 59, 59);
+  color: black;
 }
 
 .usermotto {
   margin-top: 200px;
+}
+
+.img_btn{
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 20rpx;
+  background-color: white;
+  border-radius: 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+}
+.img_btn::after {
+  border: 0; 
+}
+
+.img_btn image {
+  width: 50rpx;
+  height: 50rpx;
 }

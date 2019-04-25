@@ -1,24 +1,17 @@
 <!--pages/bookshelf/bookshelf.wxml-->
 <view class="main_head" style="background-image:url({{background}});height:400rpx">
-    <image class="avater" src="{{userInfo.avatarUrl}}"></image>
-    <view class="nickName">{{userInfo.nickName}}</view>
-    <image class="scan_btn" bindtap="scan" src="../images/scan.png" />
+  <image class="avater" src="{{userInfo.avatarUrl}}"></image>
+  <view class="nickName">{{userInfo.nickName}}</view>
+  <image class="scan_btn" bindtap="scan" src="../images/scan.png" />
 </view>
 
-<!-- <view class="page">
-    <view class="page__bd">
-        <view class="weui-panel weui-panel_access"> -->
-<!-- <view class="weui-panel__hd">
-            </view> -->
 <view wx:if="{{hasUserInfo}}" class="weui-panel__bd">
   <!-- <template is='bookList' data='{{bookList}}'/> -->
-  <block wx:for='{{bookList}}'>
+  <block wx:for='{{bookList}}' wx:key="{{webUrl}}">
     <book-item info-dic="{{item}}"/>
   </block>
 </view>
+<view class="noBooks_text" wx:if="{{noBooks}}">书架上空空如也...</view>
 <view class="login_button">
-<button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" type="primary" size="mini" bindgetuserinfo="getUserInfo">使用微信登录</button>
+  <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" type="primary" size="mini" bindgetuserinfo="getUserInfo">使用微信登录</button>
 </view>
-<!-- </view>
-</view>
-</view> -->

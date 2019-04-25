@@ -5,6 +5,7 @@ Page({
     hasIntro: false,
     isPreview: false,
     useAlbum: false,
+    generating:false,
   },
 
   /**
@@ -12,26 +13,19 @@ Page({
    */
   onLoad: function(options) {
     console.log(JSON.parse(options.current))
-    let dataDic = JSON.parse(options.current)
+    let  infoDic= JSON.parse(options.current)
     wx.setNavigationBarTitle({
-      title: dataDic.title,
+      title: infoDic.title,
     })
     this.setData({
-      "title": dataDic.title,
-      "writer": dataDic.writer == undefined ? "暂无" : dataDic.writer,
-      "publisher": dataDic.publisher == undefined ? "暂无" : dataDic.publisher,
-      "pubTime": dataDic.pubTime == undefined ? "暂无" : dataDic.pubTime,
-      "isSearchList": dataDic.isSearchList,
-      "rating": dataDic.rating,
-      "imgUrl": dataDic.imgUrl,
-      "webUrl": dataDic.webUrl
+      "infoDic":infoDic
     })
-    if (dataDic.isSearchList) {
+    if (infoDic.isSearchList) {
       wx.request({
-        url: 'http://127.0.0.1:8000/book_intro',
+        url: app.globalData.HOST+'/book_intro',
         method: 'POST',
         data: {
-          'webUrl': "https://m.douban.com/subject/" + dataDic.webUrl
+          'webUrl': "https://m.douban.com/subject/" + infoDic.webUrl
         },
         header: {
           'content-type': 'application/json' // 默认值
@@ -39,7 +33,7 @@ Page({
         success: res => {
           console.log(res)
           this.setData({
-            "intro": res.data.data.intro,
+            "infoDic.intro": res.data.data.intro,
           })
         },
         fali() {
@@ -100,7 +94,7 @@ Page({
   readSuccess(e) {
     console.log(e)
     wx.request({
-      url: 'http://127.0.0.1:8000/read_success',
+      url: app.globalData.HOST+'/read_success',
       method: 'POST',
       data: {
         "ReadTrackerId": this.data.ReadTrackerId
@@ -116,12 +110,12 @@ Page({
   startRead(e) {
     console.log(e)
     wx.request({
-      url: 'http://127.0.0.1:8000/start_read',
+      url: app.globalData.HOST+'/start_read',
       method: "POST",
       data: {
         "sessionId": app.globalData.sessionId,
-        "webUrl": this.data.webUrl,
-        "title": this.data.title,
+        "webUrl": this.data.infoDic.webUrl,
+        "title": this.data.infoDic.title,
         "readTime": e.detail.readTime
       },
       success: res => {
@@ -146,10 +140,17 @@ Page({
     }
     return y + fontsize * (parseInt((i - 1) / row_length))
   },
-  gen_poster() {
+  genPoster() {
     console.log("this is gen_poster")
     var src1 = app.globalData.userInfo;
-    var src2 = this.data.imgUrl;
+    var src2 = this.data.infoDic;
+    this.setData({
+      "generating":true
+    })
+    wx.showLoading({
+      title: '生成中',
+      mask: true,
+    })
     let promise0 = new Promise(function(resolve, reject) {
       wx.getImageInfo({
         src: '../images/background.png',
@@ -170,7 +171,7 @@ Page({
     });
     let promise2 = new Promise(function(resolve, reject) {
       wx.getImageInfo({
-        src: src2,
+        src: src2.imgUrl,
         success: function(res) {
           console.log(res)
           resolve(res);
@@ -179,7 +180,7 @@ Page({
     });
     // let promise3 = new Promise(function(resolve,reject){
     //   wx.request({
-    //     url: 'http://127.0.0.1:8000/get_wxcode',
+    //     url: app.globalData.HOST+'/get_wxcode',
     //     method:'get',
     //     success:res=>{
     //       console.log(res)
@@ -212,13 +213,16 @@ Page({
       ctx.setFontSize(28)
       var detail_x = 225
       var detail_y = 93
-      detail_y = this.longTextPainter(ctx, this.data.title, 28, 275, detail_x, detail_y)
-      //ctx.fillText(this.data.title, 225, 83)
+      detail_y = this.longTextPainter(ctx, this.data.infoDic.title, 28, 275, detail_x, detail_y)
+      //ctx.fillText(this.data.infoDic.title, 225, 83)
       ctx.setFontSize(18)
-      ctx.fillText('作者：' + this.data.writer, detail_x + 10, detail_y + 28)
-      ctx.fillText('出版社：' + this.data.publisher, detail_x + 10, detail_y + 58)
-      ctx.fillText('出版时间：' + this.data.pubTime, detail_x + 10, detail_y + 88)
-      ctx.fillText('评分：' + this.data.rating, detail_x + 10, detail_y + 118)
+      ctx.fillText('作者：' + this.data.infoDic.writer, detail_x + 10, detail_y + 38)
+      ctx.fillText('出版社：' + this.data.infoDic.publisher, detail_x + 10, detail_y + 68)
+      ctx.fillText('出版时间：' + this.data.infoDic.pubTime, detail_x + 10, detail_y + 98)
+      ctx.fillText('评分：' + this.data.infoDic.rating, detail_x + 10, detail_y + 128)
+      ctx.fillText('简介：',20,300)
+      this.longTextPainter(ctx,this.data.infoDic.intro,18,470,20,330)
+      
       ctx.save()
       ctx.beginPath(); //开始绘制
       var avatar_width = 60
@@ -232,9 +236,9 @@ Page({
       ctx.restore();
       ctx.setFillStyle('black')
       ctx.fillText("我正在读我书架上的", avatar_x + 70, avatar_y + 25)
-      ctx.fillText(this.data.title, avatar_x + 70, avatar_y + 50)
+      ctx.fillText(this.data.infoDic.title, avatar_x + 70, avatar_y + 50)
       /* 绘制 */
-      var that = this;
+      var that = this
       ctx.draw(true, setTimeout(function() {
         wx.canvasToTempFilePath({
           x: 0,
@@ -245,14 +249,16 @@ Page({
           destHeight: 800,
           canvasId: 'shareImg',
           success: function(res) {
+            wx.hideLoading()
             console.log(res.tempFilePath);
             that.setData({
-              posterUrl: res.tempFilePath,
-              isPreview: true
+              "posterUrl": res.tempFilePath,
+              "isPreview": true,
+              "generating":false,
             })
           },
           fail: function(res) {
-            console.log(res)
+            console.log("canvas to file failed")
           }
         });
       }, 1000));
@@ -268,7 +274,11 @@ Page({
             success: res => {
               this.savetoAlbum()
             },
-            fail() {
+            fail:res=> {
+              this.setData({
+                isPreview:false,
+              })
+              app.showToast("授权失败, 可在我的->授权管理中重新授权")
               console.log("authorize failed")
             }
           });
@@ -277,15 +287,20 @@ Page({
       }
     });
   },
+  hidePreview(){
+    this.setData({
+      isPreview:false,
+    })
+  },
   savetoAlbum() {
     var that = this
-    //生产环境时 记得这里要加入获取相册授权的代码
     wx.saveImageToPhotosAlbum({
       filePath: that.data.posterUrl,
       success(res) {
         console.log(res)
       },
       fail() {
+        app.showToast("授权失败, 可在我的->授权管理中重新授权")
         console.log("save to Album failed")
       }
     })

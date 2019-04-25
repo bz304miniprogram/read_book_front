@@ -34,3 +34,10 @@
   color:white;
   z-index: 100;
 }
+
+.noBooks_text{
+  line-height: 350rpx; 
+  text-align: center;  
+  color: gray;
+  font-size: 18;
+}

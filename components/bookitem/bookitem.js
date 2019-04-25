@@ -6,16 +6,12 @@ Component({
   properties: {
     infoDic: {
       type: Object,
-      observer: function(newVal, oldVal) {}
     },
     index: Number,
-    deleteMode:{
-      type:Boolean,
-      value:false,
-    },
-    isDeleted:{
-      type:Boolean,
-      value:false
+    deleteMode: Boolean,
+    isDeleted: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -45,34 +41,35 @@ Component({
       const eventDetail = {
         "index": this.properties.index
       } // detail对象，提供给事件监听函数
-      const eventOption = {bubbles:true} // 触发事件的选项
+      const eventOption = {
+        bubbles: true
+      } // 触发事件的选项
       console.log("checkbox trigger")
       this.triggerEvent('updatecheckbox', eventDetail, eventOption)
     },
-    onLongPress(){
+    onLongPress() {
       console.log("this is long press")
-      if(!this.properties.infoDic.isSearchList){
+      if (!this.properties.infoDic.isSearchList) {
         this.setData({
-          "deleteMode":!this.properties.deleteMode
+          "deleteMode": !this.properties.deleteMode
         })
       }
     },
-    deleteBook(){
+    deleteBook() {
       wx.request({
-        url: 'http://127.0.0.1:8000/delete_book',
-        method:'POST',
-        data:{
-          "webUrl":this.properties.infoDic.webUrl,
-          "sessionId":this.properties.infoDic.sessionId
+        url: app.globalData.HOST+'/delete_book',
+        method: 'POST',
+        data: {
+          "webUrl": this.properties.infoDic.webUrl,
+          "sessionId": this.properties.infoDic.sessionId
         },
-        success:res=>{
-          
-          if(res.data.message=="delete book success")
+        success: res => {
+          if (res.data.message == "delete book success")
             this.setData({
-              isDeleted:true
+              isDeleted: true
             })
         },
-        fail(){
+        fail() {
           console.log("delete failed")
         }
       })

@@ -1,9 +1,18 @@
 <!--components/clock/clock.wxml-->
+<view>{{topMessage}}</view>
 <block wx:if="{{!isCounting}}">
-<view>选择读书时间</view>
-<slider max="120" bindchanging="changeClock" >
-</slider>
+  <slider max="120" min="15" bindchanging="changeClock">
+  </slider>
 </block>
 <view class="format-clock">{{formatClock}}</view>
-<button type="primary" bindtap='startCount' wx:if="{{!isCounting}}">开始计时</button>
-<view wx:if="{{isCounting}}">退出小程序或者返回都会放弃读书计划</view>
+<view class="btns">
+  <button class="btn" type="primary" bindtap='startCount' disabled="{{isCounting}}">
+    <image class='btnImg' mode="widthFix" src='../../pages/images/clock.png'></image>
+    <view>计时</view>
+  </button>
+  <button class="btn" type="primary" bindtap='genPoster' disabled="{{generating}}">
+    <image class='btnImg' mode="widthFix" src='../../pages/images/wechat.png'  
+  ></image>
+    <view>朋友圈</view>
+  </button>
+</view>
