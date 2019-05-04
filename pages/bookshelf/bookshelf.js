@@ -10,7 +10,7 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     bookList: [],
-    deleteMode: false,
+    flush: true,
   },
 
   /**
@@ -50,6 +50,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
+    if(this.data.flush){
     if (app.globalData.sessionId) {
       this.get_bookshelf(app.globalData.sessionId)
     } else {
@@ -58,6 +59,8 @@ Page({
       app.sessionIdReadyCallback = res => {
         that.get_bookshelf(res.sessionId)
       };
+    }
+    this.data.flush = false;
     }
   },
 
@@ -122,7 +125,8 @@ Page({
         }
         for (var i = 0; i < bookList.length; i++) {
           bookList[i]["isSearchList"] = false
-          bookList[i]["stringInfoDic"] = JSON.stringify(bookList[i])
+          bookList[i]["stringInfoDic"] = encodeURIComponent(JSON.stringify(bookList[i]))
+          
         }
         this.setData({
           "bookList": bookList
@@ -138,6 +142,7 @@ Page({
     wx.navigateTo({
       url: 'scan'
     })
+    this.data.flush = true;
   },
   getUserInfo: function(e) {
     console.log(e)

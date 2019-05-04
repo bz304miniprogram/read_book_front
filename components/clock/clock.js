@@ -10,7 +10,7 @@ Component({
     },
     topMessage:{
       type:String,
-      value: "选择读书时间",
+      value: "定个小目标吧",
     },
     clock: {
       type: Number,
@@ -64,7 +64,7 @@ Component({
       this.triggerEvent("startRead",eventDetail)
       this.setData({
         "isCounting": true,
-        "topMessage":"离开本页面会放弃读书计划",
+        "topMessage":"离开本页面就会放弃哦",
         "interval_s": setInterval(function() {
           var formatClock = this.properties.formatClock
           if (formatClock.indexOf(':') != -1)

@@ -1,0 +1,35 @@
+<!--pages/tracker/tracker.wxml-->
+<view class='tablist'>
+  <view wx:for="{{tabList}}" class='item {{current==index?"select":""}}' data-pos='{{index}}' bindtap='tabItemClick'>
+    <text>{{item}}</text>
+  </view>
+</view>
+
+<picker bindchange='monthChange' range='{{monthRange}}' value='{{month}}' wx:if='{{current}}'>
+  <view class="picker">
+    <view style="color:#e64340">{{'<- '}}{{month+1}}{{'月 ->'}}</view>
+  </view>
+</picker>
+
+<view class="out_container">
+  <swiper class='out' current='{{current}}' indicator-dots="{{false}}" autoplay="{{false}}" bindchange="contentChange" easing-function="linear">
+    <swiper-item wx:for="{{ec}}" wx:key="{{index}}">
+  <view class="out_container ec_container">
+  <!-- <block wx:for="{{ec}}"> -->
+    <ec-canvas id="chart_{{index}}" canvas-id="chart_{{index}}"  ec="{{ item }}" />
+    <!-- </block> -->
+  </view>
+  </swiper-item>
+  </swiper>
+<view class="outter_title">
+      <view class="title">
+        <view style="color:red;font-size:15px">总共</view>
+        <view style="color:red;font-size:30px">{{statistics[current].totalSuccess}}</view>
+        <view style="color:red;font-size:18px">mins</view>
+      </view>
+      <view class="title">
+        <view style="color:red;font-size:15px">成功率</view>
+        <view style="color:red;font-size:30px;">{{statistics[current].percent}}%</view>
+      </view>
+    </view>
+</view>

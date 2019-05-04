@@ -98,7 +98,7 @@ Page({
               searchList[i]["isAdded"] = false;
               searchList[i]["stringInfoDic"] = JSON.stringify(searchList[i])
             }
-            this.setData({
+            this.setData({   //bind searchList to searchList
               hasResult: true,
               searchList: searchList,
             })
@@ -136,11 +136,12 @@ Page({
           "imgUrl": searchList[i].imgUrl,
           "webUrl": searchList[i].webUrl,
           "title": searchList[i].title,
-          "writer": searchList[i].writer,
-          "publisher": searchList[i].publisher,
+          //"writer": searchList[i].writer,
+          //"publisher": searchList[i].publisher,
           "intro": searchList[i].intro,
+          "shortIntro":searchList[i].shortIntro,
           "rating": searchList[i].rating,
-          "pubTime":searchList[i].pubTime,
+          //"pubTime":searchList[i].pubTime,
         })
         searchList[i].isAdded = true;
       }

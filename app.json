@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/bookshelf/scan",
     "pages/bookdetail/bookdetail",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/tracker/tracker"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -20,6 +21,12 @@
         "text":"书架",
         "iconPath":"pages/images/books.png",
         "selectedIconPath":"pages/images/s_books.png"
+      },
+      {
+        "pagePath":"pages/tracker/tracker",
+        "text":"轨迹",
+        "iconPath":"pages/images/graph.png",
+        "selectedIconPath":"pages/images/s_graph.png"
       },
       {
         "pagePath": "pages/index/index",

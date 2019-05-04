@@ -7,8 +7,9 @@
   <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
     <view class="weui-media-box__title">{{infoDic.title}}</view>
     <view class="weui-media-box__desc">
-      <view>作者:{{infoDic.writer}}</view>
-      <view>出版:{{infoDic.publisher}}</view>
+      <view>{{infoDic.shortIntro}}</view>
+      <!-- <view>作者:{{infoDic.writer}}</view>
+      <view>出版:{{infoDic.publisher}}</view> -->
     </view>
     <view wx:if="{{!infoDic.isSearchList}}">
     <view class="weui-media-box__info" >

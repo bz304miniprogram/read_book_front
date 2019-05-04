@@ -1,0 +1,87 @@
+/* pages/tracker/tracker.wxss */
+
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-size: 12pt;
+}
+
+.out {
+  flex: auto;
+  width: 100%;
+}
+
+.out_container {
+  display: flex;
+  flex-direction: column;
+  height:100%;
+
+}
+
+.tablist {
+  display: flex;
+  background: #f5f5f5;
+  height: 80rpx;
+}
+
+.tablist .item {
+  flex: auto;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-size: 11pt;
+  color: #353535;
+}
+
+.tablist .item.select {
+  color: #e64340;
+}
+
+.tablist .item.select::after {
+  content: "";
+  height: 3rpx;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #e64340;
+}
+
+.ec_container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  padding-left: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.outter_title {
+  padding-top:40prx;
+  border-top: 2px #f5f5f5;
+}

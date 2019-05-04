@@ -3,7 +3,7 @@
 App({
   server_update_user() {
     wx.request({
-      url: this.globalData.HOST+'/update_user',
+      url: this.globalData.HOST + '/update_user',
       method: 'POST',
       // header: {
       //   'content-type': 'application/x-www-form-urlencoded'
@@ -15,9 +15,9 @@ App({
       complete(res) {
         console.log(res.data.message)
       }
-    })
+    });
   },
-  onLaunch: function () {
+  onLaunch: function() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -27,8 +27,8 @@ App({
     wx.login({
       success: res => {
         console.log(res)
-        wx.request({          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          url: this.globalData.HOST+'/code2id', // code2id
+        wx.request({ // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          url: this.globalData.HOST + '/code2id', // code2id
           data: {
             'code': res.code
           },
@@ -40,17 +40,19 @@ App({
             console.log(res.data.data.sessionId)
             this.globalData.sessionId = res.data.data.sessionId;
             this.globalData.hasSessionId = true;
-            if (this.sessionIdReadyCallback){
+            this.get_track(res.data.data.sessionId, "week")
+            //this.get_track(res.data.data.sessionId, "month")
+            if (this.sessionIdReadyCallback) {
               this.sessionIdReadyCallback(res.data.data)
             }
-            if(this.globalData.hasUserInfo)
+            if (this.globalData.hasUserInfo)
               this.server_update_user()
           },
-          fail(){
+          fail() {
             console.log('code2seesion failed')
           }
         })
-      
+
       }
     })
     // 获取用户信息
@@ -69,7 +71,7 @@ App({
               }
               this.globalData.hasUserInfo = true;
               if (this.globalData.hasSessionId)
-                server_update_user()
+                this.server_update_user()
             }
           })
         }
@@ -78,13 +80,38 @@ App({
   },
   globalData: {
     userInfo: null,
-    HOST:"http://127.0.0.1:8000"
+    HOST: "http://118.25.153.35:80"
     //sessionId
   },
-  showToast(message){
+  showToast(message) {
     wx.showToast({
       title: message,
-      icon:'none',
-    },4000)
+      icon: 'none',
+    }, 4000)
   },
+  get_track(sessionId, range) {
+    var track_url;
+    if (range == "week") {
+      track_url = this.globalData.HOST + "/get_week_track";
+    } else {
+      track_url = this.globalData.HOST + "/get_month_track"
+    }
+    wx.request({
+      url: track_url,
+      method: "POST",
+      data: {
+        "sessionId": sessionId
+      },
+      success: res => {
+        console.log(res)
+        if (range == "week")
+          this.globalData.week_track = res.data.data;
+        else
+          this.globalData.month_track = res.data.data;
+      },
+      fail: res => {
+        console.log("get week tracker failed")
+      }
+    });
+  }
 })
