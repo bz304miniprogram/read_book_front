@@ -23,11 +23,11 @@
     </view>
   </view>
   <view class="page__bd">
-    <view class="page__bd__inner">
-      <block wx:if="{{!infoDic.isSearchList}}">
+    <block wx:if="{{!infoDic.isSearchList}}">
+      <view class="page__bd__inner">
         <clock catchread-success="readSuccess" catchstart-read="startRead" catchgen-poster="genPoster" generating="{{generating}}" />
-      </block>
-    </view>
+      </view>
+    </block>
   </view>
 
 </view>

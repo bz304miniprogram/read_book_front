@@ -17,5 +17,20 @@ Page({
         //if(res.authSetting['scope:userInfo'])
       }
     })
+  },
+  genPoster(){
+    wx.request({
+      url: app.globalData.HOST + '/get_annual_poster',
+      method:"POST",
+      data:{
+        'sessionId':app.globalData.sessionId
+      },
+      success:res=>{
+        console.log(res)
+      },
+      fail(res){
+        console.log(res)
+      }
+    })
   }
 })

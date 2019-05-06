@@ -3,7 +3,7 @@
   <view class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    <button class='img_btn' bindtap="gen_poster">
+    <button class='img_btn' bindtap="genPoster">
       <image src='../images/social.png'></image>
       <view>年度统计</view>
     </button>
@@ -13,3 +13,5 @@
     </button>
   </view>
 </view>
+
+<canvas canvas-id="shareImg" style="width:500px;height:800px"></canvas>

@@ -91,8 +91,9 @@ Page({
           },
           success: res => {
             wx.hideLoading()
-            console.log(res)
             var searchList = JSON.parse(res.data).data
+            console.log("this is searchList:")
+            console.log(searchList)
             for (var i = 0; i < searchList.length; i++) {
               searchList[i]["isSearchList"] = true
               searchList[i]["isAdded"] = false;
