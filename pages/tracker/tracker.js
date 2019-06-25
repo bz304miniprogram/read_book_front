@@ -51,7 +51,7 @@ function getOption_w(week_track) {
 }
 
 function getOption_m(month_track) {
-  console.log(month_track.readSuccess)
+  //console.log(month_track.readSuccess)
   const model = {
     yCates: [
       'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
@@ -217,7 +217,6 @@ Page({
             'month': month,
           },
           success: res => {
-            console.log(res)
             resolve(res.data.data)
           },
           fail: res => {
@@ -228,7 +227,6 @@ Page({
       Promise.all(
         [promise0]
       ).then(res => {
-        console.log(res)
         month_track = res[0]
         heatChart.setOption(getOption_m(month_track))
         this.setData({

@@ -80,7 +80,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    HOST: "http://118.25.153.35:80"
+    HOST: "https://www.read-a-book.wang"
     //sessionId
   },
   showToast(message) {

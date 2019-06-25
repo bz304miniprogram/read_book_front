@@ -1,14 +1,16 @@
 <!--pages/bookshelf/bookshelf.wxml-->
 <view class="main_head" style="background-image:url({{background}});height:400rpx">
-  <image class="avater" src="{{userInfo.avatarUrl}}"></image>
-  <view class="nickName">{{userInfo.nickName}}</view>
+  <block wx:if="{{hasUserInfo}}">
+    <image class="avater" src="{{userInfo.avatarUrl}}"></image>
+    <view class="nickName">{{userInfo.nickName}}</view>
+  </block>
   <image class="scan_btn" bindtap="scan" src="../images/scan.png" />
 </view>
 
-<view wx:if="{{hasUserInfo}}" class="weui-panel__bd">
+<view class="weui-panel__bd">
   <!-- <template is='bookList' data='{{bookList}}'/> -->
   <block wx:for='{{bookList}}' wx:key="{{webUrl}}">
-    <book-item info-dic="{{item}}"/>
+    <book-item info-dic="{{item}}" />
   </block>
 </view>
 <view class="noBooks_text" wx:if="{{noBooks}}">书架上空空如也...</view>

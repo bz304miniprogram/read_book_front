@@ -17,7 +17,9 @@
       <view class="page__desc">出版时间：{{infoDic.pubTime}}</view>
       <view class="page__desc">评分：{{infoDic.rating}}</view>
       <view class='page__desc'>标签：{{infoDic.tags}}</view>
-      <image class="page__img" src="{{infoDic.imgUrl}}" mode="aspectFit" />
+      <view class="page__img">
+      <image src="{{infoDic.imgUrl}}" mode="aspectFit" />
+      </view>
       <view class="page__desc" catchtap='getDetailIntro' wx:if="{{!hasDetailIntro}}">简介：{{infoDic.intro}}</view>
       <view class="page__desc" catchtap='getDetailIntro' wx:if="{{hasDetailIntro}}">简介：{{infoDic.detailIntro}}</view>
     </view>

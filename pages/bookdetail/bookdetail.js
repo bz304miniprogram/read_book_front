@@ -20,11 +20,10 @@ Page({
     wx.setNavigationBarTitle({
       title: infoDic.title,
     })
-    if (infoDic.writer) {
     this.setData({
       "infoDic": infoDic
-    })}
-    else{
+    })
+    if (!infoDic.writer){
       wx.request({
         url: app.globalData.HOST+"/update_infoDic",
         data :{
@@ -49,7 +48,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
@@ -63,7 +61,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log("i am onhide")
   },
 
   /**
@@ -178,7 +176,12 @@ Page({
   },
   genPoster() {
     console.log("this is gen_poster")
-    var src1 = app.globalData.userInfo;
+    if (app.globalData.userInfo==null){
+      app.showToast("获取信息失败，请在我的->授权管理开启信息权限")
+      return
+    }
+    else
+      var src1 = app.globalData.userInfo
     var src2 = this.data.infoDic;
     this.setData({
       "generating": true

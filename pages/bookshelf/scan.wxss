@@ -1,1 +1,17 @@
 /* pages/bookshelf/scan.wxss */
+.failed_message{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 12pt;
+}
+
+.failed_message view{
+  padding: 40rpx;
+  color: gray;
+}
+.failed_message button{
+  width: 90%;
+}
