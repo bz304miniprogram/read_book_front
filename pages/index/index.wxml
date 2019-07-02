@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<poster poster-type="annual" id ="poster"></poster>
 <view class="container">
   <view class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>

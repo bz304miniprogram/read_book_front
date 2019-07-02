@@ -13,27 +13,6 @@ Page({
   },
   onLoad: function(options) {
     watch.setWatcher(this);
-    // wx.getSetting({
-    //   success: res => {
-    //     if (!res.authSetting['scope.camera'])
-    //       wx.authorize({
-    //         scope: 'scope.camera',
-    //         success: res => {
-    //           this.setData({
-    //             useCamera: true
-    //           })
-
-    //         },
-    //         fail() {
-    //           app.showToast("授权失败, 可在我的->授权管理中重新授权")
-    //           console.log("authorize failed")
-    //         }
-    //       })
-    //     else this.setData({
-    //       useCamera: true
-    //     })
-    //   }
-    // })
   },
   watch: {
    flush: function(newVal, oldVal){
@@ -190,7 +169,7 @@ Page({
           console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
         });
       },
-      fail(res) {
+      fail:res=> {
         this.setData({
           "failed": true
         })
@@ -242,14 +221,9 @@ Page({
       i++;
     }
     if (list.length == 0) {
-      // if (search_words.length==0)
-      //   return [];
       console.log("this is search_words")
       console.log(search_words)
-      //if (search_words[search_words.length-1].length<=1)
       search_words.pop();
-      //else 
-        //search_words[search_words.length - 1] = search_words[search_words.length - 1].substr(0, search_words[search_words.length - 1].length-1)
       if ((search_words.length == 1 && search_words[0].length < 2) || search_words.length == 0)
         return [];
       else{
@@ -333,7 +307,6 @@ Page({
   },
   bookshelfAdd() {
     var chosen_books = new Array()
-    // console.log(this.data.searchList)
     var searchList = this.data.searchList
     for (var i = 0; i < searchList.length; i++) {
       if (searchList[i].isFirst && !searchList[i].isAdded) {
@@ -342,12 +315,9 @@ Page({
           "imgUrl": searchList[i].imgUrl,
           "webUrl": searchList[i].webUrl,
           "title": searchList[i].title,
-          //"writer": searchList[i].writer,
-          //"publisher": searchList[i].publisher,
           "intro": searchList[i].intro,
           "shortIntro": searchList[i].shortIntro,
           "rating": searchList[i].rating,
-          //"pubTime":searchList[i].pubTime,
         })
         searchList[i].isAdded = true;
       }

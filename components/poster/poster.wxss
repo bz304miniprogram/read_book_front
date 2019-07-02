@@ -1,0 +1,36 @@
+/* components/poster.wxss */
+.preview {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  z-index: 99;
+}
+
+.preview_img {
+  top:5%;
+  width: 80%;
+  height: 80%;
+  position: fixed;
+  left: 10%;
+  z-index: 100;
+  border: 1px dashed #fff;
+}
+
+.preview_button {
+  width: 40%;
+  position: fixed;
+  left: 30%;
+  z-index:100;
+  bottom:2%
+}
+
+.share{
+  padding-top: 40rpx;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 999px;
+}

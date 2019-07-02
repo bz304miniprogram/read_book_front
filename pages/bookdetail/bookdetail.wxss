@@ -77,7 +77,7 @@ canvas {
 .preview_img {
   width: 80%;
   height: 80%;
-  position: absolute;
+  position: fixed;
   left: 10%;
   z-index: 100;
   border: 1px dashed #fff;
@@ -85,10 +85,10 @@ canvas {
 
 .preview_button {
   width: 40%;
-  position: absolute;
+  position: fixed;
   left: 30%;
   z-index:100;
-  bottom:20%
+  bottom:5%
 }
 
 .share{

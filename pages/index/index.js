@@ -27,6 +27,7 @@ Page({
       },
       success:res=>{
         console.log(res)
+        this.selectComponent("#poster").genPoster(res.data.data) //genposter 触发前 setData已经执行完毕
       },
       fail(res){
         console.log(res)

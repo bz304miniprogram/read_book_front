@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/bookshelf/bookshelf",
     "pages/index/index",
     "pages/bookshelf/scan",
@@ -7,29 +7,29 @@
     "pages/logs/logs",
     "pages/tracker/tracker"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
     "uploadFile": 100000
   },
-  "tabBar":{
-    "selectedColor":"#0d901c",
-    "list":[
+  "tabBar": {
+    "selectedColor": "#0d901c",
+    "list": [
       {
-        "pagePath":"pages/bookshelf/bookshelf",
-        "text":"书架",
-        "iconPath":"pages/images/books.png",
-        "selectedIconPath":"pages/images/s_books.png"
+        "pagePath": "pages/bookshelf/bookshelf",
+        "text": "书架",
+        "iconPath": "pages/images/books.png",
+        "selectedIconPath": "pages/images/s_books.png"
       },
       {
-        "pagePath":"pages/tracker/tracker",
-        "text":"轨迹",
-        "iconPath":"pages/images/graph.png",
-        "selectedIconPath":"pages/images/s_graph.png"
+        "pagePath": "pages/tracker/tracker",
+        "text": "轨迹",
+        "iconPath": "pages/images/graph.png",
+        "selectedIconPath": "pages/images/s_graph.png"
       },
       {
         "pagePath": "pages/index/index",
@@ -37,7 +37,7 @@
         "iconPath": "pages/images/me.png",
         "selectedIconPath": "pages/images/s_me.png"
       }
-
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
