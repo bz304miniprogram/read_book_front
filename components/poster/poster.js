@@ -227,7 +227,17 @@ Component({
         ctx.setFillStyle('white')
         ctx.fillRect(0, 0, 500, 800)
         ctx.draw()
+        // ctx.drawImage(res[2].path, 50, 60, 140, res[2].height / res[2].width * 140)
+        // ctx.drawImage(res[3].path, 150, 550, 200, 200);
+
+        var detail_list =[infoDic.maxTime]
         //textPainter.blockPainter(ctx, detail_list, 18, 2645, detail_x + 10, detail_y + 38, 28)
+        
+        
+        
+        
+        
+        
         var that = this
         ctx.draw(true, function () {
           wx.canvasToTempFilePath({
