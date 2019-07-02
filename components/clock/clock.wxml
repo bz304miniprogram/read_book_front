@@ -1,7 +1,7 @@
 <!--components/clock/clock.wxml-->
 <view>{{topMessage}}</view>
 <block wx:if="{{!isCounting}}">
-  <slider max="120" min="15" bindchanging="changeClock">
+  <slider max="120" min="15" bindchanging="changeClock" bindchange="changeClockByClick">
   </slider>
 </block>
 <view class="format-clock">{{formatClock}}</view>
@@ -10,7 +10,7 @@
     <image class='btnImg' mode="widthFix" src='../../pages/images/clock.png'></image>
     <view>计时</view>
   </button>
-  <button class="btn" type="primary" bindtap='genPoster' disabled="{{generating}}">
+  <button class="btn" type="primary" bindtap='genPoster' disabled="{{generating||isCounting||noCounting}}" >
     <image class='btnImg' mode="widthFix" src='../../pages/images/wechat.png'  
   ></image>
     <view>朋友圈</view>
