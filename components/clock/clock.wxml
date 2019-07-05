@@ -10,7 +10,9 @@
     <image class='btnImg' mode="widthFix" src='../../pages/images/clock.png'></image>
     <view>计时</view>
   </button>
+  <!-- 调试用 -->
   <button class="btn" type="primary" bindtap='genPoster' disabled="{{generating||isCounting}}" >
+  <!-- <button class="btn" type="primary" bindtap='genPoster' disabled="{{generating||isCounting||noCounting}}" > -->
     <image class='btnImg' mode="widthFix" src='../../pages/images/wechat.png'  
   ></image>
     <view>朋友圈</view>
