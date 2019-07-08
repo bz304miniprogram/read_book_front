@@ -25,6 +25,15 @@
   z-index: 100;
 }
 
+.input_btn{
+  position:absolute; 
+  width:45rpx;
+  height:45rpx;
+  right:90rpx;
+  top:15rpx;
+  z-index: 100;
+}
+
 .avater{
   position:absolute;
   width:140rpx;

@@ -6,7 +6,7 @@
 </view>
 
 
-<picker bindchange='monthChange' range='{{monthRange}}' value='{{month}}'>
+<picker bindchange='monthChange' range='{{monthRange}}' value='{{month}}' disabled='{{current==0}}'>
   <view class="picker_{{current}}" >
     <view style="color:#e64340" hidden='{{current==0}}'>{{'<- '}}{{month+1}}{{'月 ->'}}</view>
   </view>
