@@ -140,7 +140,14 @@ Page({
   scan: function() {
     console.log("scanning")
     wx.navigateTo({
-      url: 'scan'
+      url: 'scan?type=scan'
+    })
+    this.data.flush = true;
+  },
+  input: function () {
+    console.log("input")
+    wx.navigateTo({
+      url: 'scan?type=input'
     })
     this.data.flush = true;
   },

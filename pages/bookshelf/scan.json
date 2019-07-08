@@ -1,6 +1,6 @@
 {
-  "navigationBarTitleText": "扫一扫",
   "usingComponents": {
-     "book-item": "../../components/bookitem/bookitem"
+     "book-item": "../../components/bookitem/bookitem",
+    "search-bar":"../../components/searchBar/searchBar"
   }
 }

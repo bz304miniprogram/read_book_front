@@ -1,26 +1,15 @@
-<!--pages/bookshelf/scan.wxml-->
-<!-- <view wx:if="{{useCamera&&!hasResult}}">
-<camera
-  device-position="back"
-  flash="off"
-  binderror="error"
-  style="width: 100%; height: 300px;"
-></camera>
-<button type="primary" bindtap="takePhoto" disabled='{{disabled}}'>拍照上传</button>
-<!-- <view>预览</view>
-<image mode="widthFix" src="{{src}}"></image> -->
-<!-- </view> -->
+<search-bar catchsearch="input_search" wx:if="{{type==0}}"/>
 <view wx:if="{{hasResult}}">
   <block wx:for="{{searchList}}" wx:key="{{searchList.index}}">
-  <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" wx:if="{{!item.isAdded}}"/>
+    <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" wx:if="{{!item.isAdded}}" />
   </block>
   <button type="primary" bindtap="bookshelfAdd">添加到我的书架</button>
 </view>
 
-<view class="container" wx:if="{{failed}}">
-<view class ="failed_message" >
-<icon type="warn" size="93"></icon>
-<view style="font-size=20px; color=gray">图片分析失败，书籍填充满相框可以提高识别率哦!</view>
-<button type="primary" bindtap='reset'>重新拍摄</button>
-</view>
+<view class="container" wx:if="{{failed && type==1}}">
+  <view class="failed_message">
+    <icon type="warn" size="93"></icon>
+    <view style="font-size=20px; color=gray">图片分析失败，书籍填充满相框可以提高识别率哦!</view>
+    <button type="primary" bindtap='reset'>重新拍摄</button>
+  </view>
 </view>

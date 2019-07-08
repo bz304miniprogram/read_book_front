@@ -5,6 +5,7 @@
     <view class="nickName">{{userInfo.nickName}}</view>
   </block>
   <image class="scan_btn" bindtap="scan" src="../images/scan.png" />
+  <image class="input_btn" bindtap="input" src="../images/input.png" />
 </view>
 
 <view class="weui-panel__bd">
