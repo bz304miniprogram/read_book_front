@@ -1,6 +1,7 @@
 // components/poster.js
 var textPainter = require("./text_painter.js");
 const app = getApp();
+// const cx = wepy.createCanvasContext('chart')
 Component({
   properties: {
     infoDic: {
@@ -99,31 +100,31 @@ Component({
         mask: true,
       })
 
-      let promise0 = new Promise(function(resolve, reject) { //请求背景图
+      let promise0 = new Promise(function (resolve, reject) { //请求背景图
         wx.getImageInfo({
           src: '../../pages/images/background.png',
-          success: function(res) {
+          success: function (res) {
             resolve(res)
           }
         })
       });
-      let promise1 = new Promise(function(resolve, reject) { //用户头像
+      let promise1 = new Promise(function (resolve, reject) { //用户头像
         wx.getImageInfo({
           src: src1.avatarUrl,
-          success: function(res) {
+          success: function (res) {
             resolve(res);
           }
         })
       });
-      let promise2 = new Promise(function(resolve, reject) { //书的封面
+      let promise2 = new Promise(function (resolve, reject) { //书的封面
         wx.getImageInfo({
           src: src2.imgUrl,
-          success: function(res) {
+          success: function (res) {
             resolve(res);
           }
         })
       });
-      let promise3 = new Promise(function(resolve, reject) { //小程序图
+      let promise3 = new Promise(function (resolve, reject) { //小程序图
         wx.getImageInfo({
           src: app.globalData.HOST + "/get_wxcode",
           success: res => {
@@ -183,7 +184,7 @@ Component({
 
         /* 绘制 */
         var that = this
-        ctx.draw(true, function() {
+        ctx.draw(true, function () {
           wx.canvasToTempFilePath({
             x: 0,
             y: 0,
@@ -192,7 +193,7 @@ Component({
             destWidth: 500,
             destHeight: 800,
             canvasId: 'shareImg',
-            success: function(res) {
+            success: function (res) {
               wx.hideLoading()
               that.setData({
                 "posterUrl": res.tempFilePath,
@@ -200,7 +201,7 @@ Component({
                 "generating": false,
               })
             },
-            fail: function(res) {
+            fail: function (res) {
               console.log(res)
             }
           }, that);
@@ -225,23 +226,63 @@ Component({
         mask: true,
       })
 
-      let promise0 = new Promise(function(resolve, reject) { //请求背景图
+      let promise0 = new Promise(function (resolve, reject) { //请求背景图
         wx.getImageInfo({
-          src: '../../pages/images/wallhaven-j5ky3m.png',
-          success: function(res) {
+          src: '../../pages/images/wallhaven-yjje3x.png',
+          success: function (res) {
             resolve(res)
           }
         })
       });
-      let promise1 = new Promise(function(resolve, reject) { //头像
+      let promise1 = new Promise(function (resolve, reject) { //请求图1
+        wx.getImageInfo({
+          src: '../../pages/images/1.png',
+          success: function (res) {
+            resolve(res)
+          }
+        })
+      });
+      let promise2 = new Promise(function (resolve, reject) { //请求图2
+        wx.getImageInfo({
+          src: '../../pages/images/2.png',
+          success: function (res) {
+            resolve(res)
+          }
+        })
+      });
+      let promise3 = new Promise(function (resolve, reject) { //请求图3
+        wx.getImageInfo({
+          src: '../../pages/images/3.png',
+          success: function (res) {
+            resolve(res)
+          }
+        })
+      });
+      let promise4 = new Promise(function (resolve, reject) { //请求图4
+        wx.getImageInfo({
+          src: '../../pages/images/4.png',
+          success: function (res) {
+            resolve(res)
+          }
+        })
+      });
+      let promise5 = new Promise(function (resolve, reject) { //请求图5
+        wx.getImageInfo({
+          src: '../../pages/images/5.png',
+          success: function (res) {
+            resolve(res)
+          }
+        })
+      });
+      let promise6 = new Promise(function (resolve, reject) { //头像
         wx.getImageInfo({
           src: src1.avatarUrl,
-          success: function(res) {
+          success: function (res) {
             resolve(res);
           }
         })
       });
-      // let promise2 = new Promise(function (resolve, reject) {//书封面
+      // let promise7 = new Promise(function (resolve, reject) {//书封面
       //   wx.getImageInfo({
       //     src: src2.imgUrl,
       //     success: function (res) {
@@ -249,7 +290,7 @@ Component({
       //     }
       //   })
       // });
-      let promise3 = new Promise(function(resolve, reject) { //小程序
+      let promise8 = new Promise(function (resolve, reject) { //小程序
         wx.getImageInfo({
           src: app.globalData.HOST + "/get_wxcode",
           success: res => {
@@ -262,79 +303,97 @@ Component({
       })
       /* 图片获取成功才执行后续代码 */
       Promise.all(
-        [promise0, promise1, promise3]
+        [promise0, promise1, promise2, promise3, promise4, promise5, promise6, promise8]
       ).then(res => {
         const ctx = wx.createCanvasContext('shareImg', this) //绑定一个组件
 
         //构建底板
         ctx.setFillStyle('white')
         ctx.fillRect(0, 0, 500, 800)
-        ctx.drawImage("../../" + res[0].path, 0, 0, 500, 800) //大背景
+        ctx.drawImage("../../" + res[0].path, 0, 0, 500, 530) //大背景
 
         //绘制标题
         ctx.setTextAlign('left') //  位置
         ctx.setFillStyle('black') //  颜色
         ctx.setFontSize(24) //  字号
-        ctx.textAlign="center"; //文字居中
+        ctx.textAlign = "center"; //文字居中
         ctx.fillText('-年度统计-', 250, 30)
 
         //最常读
         ctx.setTextAlign('left') //  位置
         ctx.setFillStyle('black') //  颜色
         ctx.setFontSize(20) //  字号
-        ctx.textAlign="center"; //文字居中
-        
-        ctx.fillText(infoDic.maxTime, 250, 70)
-        ctx.fillText('是这一年你读过最多的书', 250, 105)
-        ctx.fillText('共计阅读了'+infoDic.sum+'分钟', 250, 140)
+        ctx.textAlign = "center"; //文字居中
+
+        ctx.fillText('亲爱的' + app.globalData.userInfo.nickName ,250 ,70)
+        ctx.fillText('这一年你共计阅读了' + infoDic.sum + '分钟', 250, 105)
+        ctx.fillText('相当于读了' + infoDic.sum * 400+ '字', 250, 140)
+        ctx.fillText('《' + infoDic.maxTime + '》', 250, 180)
+        ctx.fillText('是这一年你读过最久的书', 250, 215)
+
+        ctx.setTextAlign('left') //  位置
+        ctx.setFillStyle('black') //  颜色
+        ctx.setFontSize(22) //  字号
+        ctx.textAlign = "center"; //文字居中
+        ctx.fillText('以下是你阅读最多的标签', 250, 270)
+
+
 
         /** 画饼图*/
         // 数据源
-        var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1], infoDic.topTag[5][1]];
-        var colors = ["#48D1CC", "#238E23", "#9370DB", "#87CEEB", "#6B8E23", "#FFE4B5"];
+        // var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1], infoDic.topTag[5][1]];
+        // var colors = ["#48D1CC", "#C71585", "#F08080", "#6A5ACD", "#6B8E23", "#FFE4B5"];
+        var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1]];
+        var colors = ["#48D1CC", "#C71585", "#F08080", "#6A5ACD", "#6B8E23"];
         var total = 0;
         // 计算总量
-        for  (var  val  =  0;  val  <  array.length;  val++)  {      
-          total  +=  array[val];    
+        for (var val = 0; val < array.length; val++) {
+          total += array[val];
         }
-        
+
         // 圆心坐标
         var point = {
-          x: 150,
-          y: 600 
+          x:  150,
+          y:  400
         };
         //半径
-        var radius = 140;
-        for (var i = 0; i < array.length; i++) {      
-          ctx.beginPath();      
-          var  start  =  0;      
-          if  (i  >  0)  {        
-            for  (var  j  =  0;  j  <  i;  j++)  {          
-              start  +=  array[j]  /  total  *  2  *  Math.PI;        
-            }      
-          }      
-          ctx.arc(point.x,  point.y,  radius,  start,  start + array[i]  /  total  *  2  *  Math.PI,  false);      
+        var  radius  = 100;
+        for  (var  i  = 0;  i  < array.length;  i++)  {
+          ctx.beginPath();
+          var start = 0;
+          if (i > 0) {
+            for (var j = 0; j < i; j++) {
+              start += array[j] / total * 2 * Math.PI;
+            }
+          }
+          ctx.arc(point.x, point.y, radius, start, start + array[i] / total * 2 * Math.PI, false);
           ctx.setLineWidth(2);
-          ctx.lineTo(point.x,  point.y);      
-          ctx.setStrokeStyle('#F5F5F5');      
-          ctx.setFillStyle(colors[i]);      
-          ctx.fill();      
-          ctx.closePath();      
-          ctx.stroke();    
+          ctx.lineTo(point.x, point.y);
+          ctx.setStrokeStyle('#F5F5F5');
+          ctx.setFillStyle(colors[i]);
+          ctx.fill();
+          ctx.closePath();
+          ctx.stroke();
         }
 
         //饼图文字
         ctx.setTextAlign('left') //  位置
         ctx.setFillStyle('black') //  颜色
-        ctx.setFontSize(16) //  字号
+        ctx.setFontSize(18) //  字号
         // ctx.textAlign="center"; //文字居中
-        
-        ctx.fillText(infoDic.topTag[0][0], 350, 450)
-        ctx.fillText(infoDic.topTag[1][0], 350, 500)
-        ctx.fillText(infoDic.topTag[2][0], 350, 550)
-        ctx.fillText(infoDic.topTag[3][0], 350, 600)
-        ctx.fillText(infoDic.topTag[4][0], 350, 650)
-        ctx.fillText(infoDic.topTag[5][0], 350, 700)
+
+        ctx.fillText(infoDic.topTag[0][0], 350, 350)
+        ctx.fillText(infoDic.topTag[1][0], 350, 380)
+        ctx.fillText(infoDic.topTag[2][0], 350, 410)
+        ctx.fillText(infoDic.topTag[3][0], 350, 440)
+        ctx.fillText(infoDic.topTag[4][0], 350, 470)
+        // ctx.fillText(infoDic.topTag[5][0], 350, 500)
+        ctx.drawImage("../../" + res[1].path, 315, 335, 18, 18) //图例1
+        ctx.drawImage("../../" + res[2].path, 315, 365, 18, 18) //图例1
+        ctx.drawImage("../../" + res[3].path, 315, 395, 18, 18) //图例1
+        ctx.drawImage("../../" + res[4].path, 315, 425, 18, 18) //图例1
+        ctx.drawImage("../../" + res[5].path, 315, 455, 18, 18) //图例1
+
 
         console.log(infoDic)
         /* 创建 canvas 画布 */
@@ -350,14 +409,14 @@ Component({
         // ctx.draw()
         // ctx.drawImage("../../" + res[0].path, 0, 0, 500, 800) //大背景
         // //ctx.drawImage(res[2].path, 50, 60, 140, res[2].height / res[2].width * 140) /*书籍图片*/
-        // ctx.drawImage(res[2].path, 150, 550, 200, 200); //小程序图片
-        // ctx.drawImage(res[1].path, 225, 93, 60, 60); //微信头像
+        // ctx.drawImage(res[6].path, 150, 550, 50, 50); //用户头像
+        ctx.drawImage(res[7].path, 150, 570, 200, 200); //小程序图
 
 
 
         /* 绘制 */
         var that = this
-        ctx.draw(true, function() {
+        ctx.draw(true, function () {
           wx.canvasToTempFilePath({
             x: 0,
             y: 0,
@@ -366,7 +425,7 @@ Component({
             destWidth: 500,
             destHeight: 800,
             canvasId: 'shareImg',
-            success: function(res) {
+            success: function (res) {
               wx.hideLoading()
               that.setData({
                 "posterUrl": res.tempFilePath,
@@ -374,7 +433,7 @@ Component({
                 "generating": false,
               })
             }, //success: function (res)
-            fail: function(res) {
+            fail: function (res) {
               console.log(res)
             } //fail: function (res)
           }, that); //wx.canvasToTempFilePath
