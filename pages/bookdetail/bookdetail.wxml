@@ -1,6 +1,6 @@
-<!--pages/bookdetail/bookdetail.wxml-->
+<!-- pages/bookdetail/bookdetail.wxml -->
 <view class="page">
-  <!-- 预览区域  -->
+  <!-- 预览区域 -->
   <!-- <view wx:if='{{isPreview}}' class='preview' bindtap='hidePreview'>
     <view class="space">
       <image class="preview_img" src='{{posterUrl}}' mode='widthFix' catchtap='save'></image>
@@ -19,10 +19,14 @@
       <view class="page__desc">评分：{{infoDic.rating}}</view>
       <view class='page__desc'>标签：{{infoDic.tags}}</view>
       <view class="page__img">
-      <image src="{{infoDic.imgUrl}}" mode="aspectFit" />
+        <image src="{{infoDic.imgUrl}}" mode="aspectFit" />
       </view>
-      <view class="page__desc" catchtap='getDetailIntro' wx:if="{{!hasDetailIntro}}">简介：{{infoDic.intro}}</view>
-      <view class="page__desc" catchtap='getDetailIntro' wx:if="{{hasDetailIntro}}">简介：{{infoDic.detailIntro}}</view>
+      <view class="page__desc" catchtap='getDetailIntro' wx:if="{{!hasDetailIntro}}">
+        简介：{{infoDic.intro}}
+      </view>
+      <view class="page__desc" catchtap='getDetailIntro' wx:if="{{hasDetailIntro}}">
+        简介：{{infoDic.detailIntro}}
+      </view>
     </view>
   </view>
   <view class="page__bd">
@@ -32,7 +36,5 @@
       </view>
     </block>
   </view>
-
 </view>
-
 <!-- <canvas canvas-id="shareImg" style="width:500px;height:800px"></canvas> -->

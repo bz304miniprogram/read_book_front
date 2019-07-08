@@ -18,7 +18,10 @@ Component({
       observer() {
         if (this.properties.clock == 0 && this.properties.isCounting == true) {
           this.setData({
-            "isCounting":false
+            "isCounting":false,
+            "noCounting":false,
+            "topMessage": "成功！",
+            "clock": 15,
           })
           clearInterval(this.properties.interval)
           clearInterval(this.properties.interval_s)
@@ -36,6 +39,10 @@ Component({
       type: Boolean,
       value: false
     },
+    noCounting: {
+      type: Boolean,
+      value: true
+    },
     generating:Boolean,
     interval: Number,
     interval_s: Number,
@@ -52,9 +59,18 @@ Component({
    */
   methods: {
     changeClock(e) {
+      console.log("this is changeclock")
       this.setData({
         "readTime": e.detail.value,
-        "clock": this.properties.readTime,
+        "clock": e.detail.value,
+      })
+    },
+    changeClockByClick(e) {
+      console.log("this is changeclockbyclick")
+      this.setData({
+        //this.data.index=,
+        "readTime": e.detail.value,
+        "clock": e.detail.value,
       })
     },
     startCount() {
@@ -64,6 +80,7 @@ Component({
       this.triggerEvent("startRead",eventDetail)
       this.setData({
         "isCounting": true,
+        "noCounting": false,
         "topMessage":"离开本页面就会放弃哦",
         "interval_s": setInterval(function() {
           var formatClock = this.properties.formatClock
