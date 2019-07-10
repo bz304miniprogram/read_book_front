@@ -8,6 +8,7 @@ Page({
     generating: false,
     startRead: false,
     hasDetailIntro: false,
+    isPreview2: false,
   },
 
   /**
@@ -87,6 +88,19 @@ Page({
    */
   onReachBottom: function() {
 
+  },
+
+  previewImage: function(){
+    console.log("lalala")
+    this.setData({
+      "isPreview2": true
+    })
+  },
+
+  closePreview: function(){
+    this.setData({
+      "isPreview2": false
+    })
   },
 
   /**

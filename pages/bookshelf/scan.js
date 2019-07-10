@@ -13,6 +13,7 @@ Page({
     failed: false,
     type: '',
     dialog_visible: -1,
+    photo: '',
   },
   onLoad: function(options) {
     this.setData({
@@ -143,6 +144,9 @@ Page({
         wx.showLoading({
           title: '上传中',
           //mask: true,
+        })
+        this.setData({
+          'photo': res.tempFilePaths[0],
         })
         const uploadTask = wx.uploadFile({
           url: app.globalData.HOST + '/upload_pic',
