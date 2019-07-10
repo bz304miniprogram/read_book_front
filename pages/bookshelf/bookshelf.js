@@ -50,17 +50,17 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
-    if(this.data.flush){
-    if (app.globalData.sessionId) {
-      this.get_bookshelf(app.globalData.sessionId)
-    } else {
-      var that = this
-      console.log("this is sessionIdReadyCallBack:")
-      app.sessionIdReadyCallback = res => {
-        that.get_bookshelf(res.sessionId)
-      };
-    }
-    this.data.flush = false;
+    if (this.data.flush) {
+      if (app.globalData.sessionId) {
+        this.get_bookshelf(app.globalData.sessionId)
+      } else {
+        var that = this
+        console.log("this is sessionIdReadyCallBack:")
+        app.sessionIdReadyCallback = res => {
+          that.get_bookshelf(res.sessionId)
+        };
+      }
+      this.data.flush = false;
     }
   },
 
@@ -103,7 +103,7 @@ Page({
       "bookList": []
     });
     wx.request({
-      url: app.globalData.HOST+'/get_bookshelf', // code2id
+      url: app.globalData.HOST + '/get_bookshelf', // code2id
       method: "POST",
       data: {
         'sessionId': sessionId
@@ -118,6 +118,7 @@ Page({
           this.setData({
             "noBooks": true
           })
+          this.selectComponent("#guide").guideUser()
         } else {
           this.setData({
             "noBooks": false
@@ -126,7 +127,7 @@ Page({
         for (var i = 0; i < bookList.length; i++) {
           bookList[i]["isSearchList"] = false
           bookList[i]["stringInfoDic"] = encodeURIComponent(JSON.stringify(bookList[i]))
-          
+
         }
         this.setData({
           "bookList": bookList
@@ -144,7 +145,7 @@ Page({
     })
     this.data.flush = true;
   },
-  input: function () {
+  input: function() {
     console.log("input")
     wx.navigateTo({
       url: 'scan?type=input'
@@ -158,8 +159,11 @@ Page({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
-    else{
+    else {
       app.showToast("授权失败, 可在我的->授权管理中重新授权")
     }
   },
+  guideUser: function() {
+    this.selectComponent("#guide").guideUser()
+  }
 })

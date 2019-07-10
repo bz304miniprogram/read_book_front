@@ -1,4 +1,5 @@
-<!--pages/bookshelf/bookshelf.wxml-->
+<!-- pages/bookshelf/bookshelf.wxml -->
+<poster poster-type="guide" id="guide"></poster>
 <view class="main_head" style="background-image:url({{background}});height:400rpx">
   <block wx:if="{{hasUserInfo}}">
     <image class="avater" src="{{userInfo.avatarUrl}}"></image>
@@ -7,14 +8,22 @@
   <image class="scan_btn" bindtap="scan" src="../images/scan.png" />
   <image class="input_btn" bindtap="input" src="../images/input.png" />
 </view>
-
 <view class="weui-panel__bd">
   <!-- <template is='bookList' data='{{bookList}}'/> -->
   <block wx:for='{{bookList}}' wx:key="{{webUrl}}">
     <book-item info-dic="{{item}}" />
   </block>
 </view>
-<view class="noBooks_text" wx:if="{{noBooks}}">书架上空空如也...</view>
-<view class="login_button">
-  <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" type="primary" size="mini" bindgetuserinfo="getUserInfo">使用微信登录</button>
+<view class="noBooks_text" wx:if="{{noBooks}}">
+  书架上空空如也...
+  <view>
+      <guide id ="guide"/>
+  </view>
 </view>
+<view class="login_button">
+  <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" type="primary" size="mini" bindgetuserinfo="getUserInfo">
+    使用微信登录
+  </button>
+</view>
+
+<canvas canvas-id="guide" style="width:600px;height:600px"></canvas>

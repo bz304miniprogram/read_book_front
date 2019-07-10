@@ -325,9 +325,9 @@ Component({
         ctx.setFontSize(20) //  字号
         ctx.textAlign = "center"; //文字居中
 
-        ctx.fillText('亲爱的' + app.globalData.userInfo.nickName ,250 ,70)
+        ctx.fillText('亲爱的' + app.globalData.userInfo.nickName, 250, 70)
         ctx.fillText('这一年你共计阅读了' + infoDic.sum + '分钟', 250, 105)
-        ctx.fillText('相当于读了' + infoDic.sum * 400+ '字', 250, 140)
+        ctx.fillText('相当于读了' + infoDic.sum * 400 + '字', 250, 140)
         ctx.fillText('《' + infoDic.maxTime + '》', 250, 180)
         ctx.fillText('是这一年你读过最久的书', 250, 215)
 
@@ -353,12 +353,12 @@ Component({
 
         // 圆心坐标
         var point = {
-          x:  150,
-          y:  400
+          x: 150,
+          y: 400
         };
         //半径
-        var  radius  = 100;
-        for  (var  i  = 0;  i  < array.length;  i++)  {
+        var radius = 100;
+        for (var i = 0; i < array.length; i++) {
           ctx.beginPath();
           var start = 0;
           if (i > 0) {
