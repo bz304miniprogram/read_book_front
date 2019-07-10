@@ -9,4 +9,4 @@
 </view>
 
 <canvas canvas-id="shareImg" style="width:500px;height:800px"></canvas>
-<canvas canvas-id="chart" class="mychart" style="width: 600rpx;height: 600rpx"></canvas>
+<!-- <canvas canvas-id="chart" class="mychart" style="width: 600rpx;height: 600rpx"></canvas> -->

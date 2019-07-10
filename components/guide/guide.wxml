@@ -1,0 +1,11 @@
+<!--components/guide.wxml-->
+<view wx:if='{{isPreview}}' class='guide'>
+  <view class="space">
+    <image class="guide_img" src='{{posterUrl}}' mode='widthFix'></image>
+  </view>
+  <view class='space'>
+    <button class="guide_button" type='primary' size='mini' catchtap='closeGuide'>我知道了</button>
+  </view>
+</view>
+
+<canvas canvas-id="guide" style="width:600px;height:300px"></canvas>
