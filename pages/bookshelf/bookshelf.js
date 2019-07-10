@@ -124,7 +124,7 @@ Page({
           })
         }
         for (var i = 0; i < bookList.length; i++) {
-          bookList[i]["isSearchList"] = false
+          bookList[i]["type"] = "bookshelf"
           bookList[i]["stringInfoDic"] = encodeURIComponent(JSON.stringify(bookList[i]))
           
         }

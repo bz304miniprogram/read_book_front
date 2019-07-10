@@ -7,4 +7,18 @@
   width: 50rpx;
   height:50rpx;
 }
-
+.flush_icon{
+  width: 50rpx;
+  height:50rpx;
+  bottom: 0
+}
+.icon_container{
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+.more{
+  background: #efeff4;
+  font-size: 16px;
+  text-align: center;
+}

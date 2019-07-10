@@ -1,32 +1,36 @@
 <!--component/bookitem.wxml-->
 <block wx:if="{{!isDeleted}}">
-<navigator url="../bookdetail/bookdetail?current={{infoDic.stringInfoDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindlongpress="onLongPress">
-  <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-    <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" />
-  </view>
-  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-    <view class="weui-media-box__title">{{infoDic.title}}</view>
-    <view class="weui-media-box__desc">
-      <view>{{infoDic.shortIntro}}</view>
-      <!-- <view>作者:{{infoDic.writer}}</view>
+  <!-- <navigator url="../bookdetail/bookdetail?current={{infoDic.stringInfoDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress"> -->
+  <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress" catchtap='tapHandler'>
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+      <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" />
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+      <view class="weui-media-box__title">{{infoDic.title}}</view>
+      <view class="weui-media-box__desc">
+        <view>{{infoDic.shortIntro}}</view>
+        <!-- <view>作者:{{infoDic.writer}}</view>
       <view>出版:{{infoDic.publisher}}</view> -->
+      </view>
+      <view wx:if="{{infoDic.type=='bookshelf'}}">
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">上次阅读</view>
+          <view class="weui-media-box__info__meta">{{infoDic.lastRead}}</view>
+        </view>
+      </view>
+      <view class="weui-media-box__info" wx:if="{{infoDic.type=='search_recommend'}}">
+        <view class="weui-media-box__info__meta">关键字：</view>
+        <view class="weui-media-box__info__meta">{{infoDic.search_string}}</view>
+      </view>
     </view>
-    <view wx:if="{{!infoDic.isSearchList}}">
-    <view class="weui-media-box__info" >
-      <view class="weui-media-box__info__meta">上次阅读</view>
-      <view class="weui-media-box__info__meta">{{infoDic.lastRead}}</view>
+    <view class="icon_container" wx:if="{{infoDic.type=='search_recommend' || infoDic.type=='search_input'}}">
+      <checkbox value="{{infoDic.webUrl}}" checked="{{infoDic.isFirst}}" catchtap='onClickCheckBox' />
     </view>
+    <view class="weui-media-box__hd weui-media-box__hd_right_in-appmsg" wx:if="{{deleteMode}}">
+      <image class="delete_icon" src="../../pages/images/delete.png" catchtap="deleteBook" />
     </view>
-    <view class="weui-media-box__info" wx:if="{{infoDic.isSearchList}}">
-      <view class="weui-media-box__info__meta">关键字：</view>
-      <view class="weui-media-box__info__meta">{{infoDic.search_string}}</view>
-    </view>
+  <!-- </navigator> -->
   </view>
-  <view class="weui-media-box__hd weui-media-box__hd_right_in-appmsg" wx:if="{{infoDic.isSearchList}}">
-    <checkbox value="{{infoDic.webUrl}}" checked="{{infoDic.isFirst}}" catchtap='onTap' />
-  </view>
-  <view class="weui-media-box__hd weui-media-box__hd_right_in-appmsg" wx:if="{{deleteMode}}">
-  <image class="delete_icon" src="../../pages/images/delete.png" catchtap="deleteBook"/>
-  </view>
-</navigator>
 </block>
+<view class="more" wx:if="{{infoDic.type=='search_recommend'}}" catchtap='showCandidate'>更多
+</view>
