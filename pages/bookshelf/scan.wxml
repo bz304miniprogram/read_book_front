@@ -1,12 +1,21 @@
-<search-bar catchsearch="input_search" wx:if="{{type==0}}"/>
+<search-bar catchsearch="input_search" wx:if="{{type=='input'}}" />
+
 <view wx:if="{{hasResult}}">
-  <block wx:for="{{searchList}}" wx:key="{{searchList.index}}">
-    <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" wx:if="{{!item.isAdded}}" />
+  <block wx:for="{{recommend}}" wx:key="{{recommend.index}}">
+    <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" catchshow-candidate="showCandidate" wx:if="{{!item.isAdded}}"/>
   </block>
   <button type="primary" bindtap="bookshelfAdd">添加到我的书架</button>
+  <block wx:for="{{candidate}}" wx:for-index="row_idx" wx:key="{{candidate.index}}">
+    <dialog visible="{{dialog_visible==row_idx}}" id="dialog_{{row_idx}}"catchclose="closeHandler">
+      <block wx:for="{{item}}" wx:key="{{item.index}}">
+        <book-item index="{{row_idx}}" col_idx="{{index}}" info-dic='{{item}}' catchexchange-item="exchangeItem" wx:if="{{!item.isAdded}}"  data-index="{{row_idx}}"/>
+      </block>
+    </dialog>
+  </block>
 </view>
 
-<view class="container" wx:if="{{failed && type==1}}">
+
+<view class="container" wx:if="{{failed && type=='scan'}}">
   <view class="failed_message">
     <icon type="warn" size="93"></icon>
     <view style="font-size=20px; color=gray">图片分析失败，书籍填充满相框可以提高识别率哦!</view>

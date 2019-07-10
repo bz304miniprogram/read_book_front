@@ -6,35 +6,45 @@ Page({
   data: {
     hasResult: false,
     searchList: [],
-    recommand: [],
+    recommend: [],
     candidate: [],
+    query_complete: [],
     flush: false,
     failed: false,
-    type:0
+    type: '',
+    dialog_visible: -1,
   },
   onLoad: function(options) {
-    if (options.type=="scan"){
-      this.setData({
-        type:1
-      })
+    this.setData({
+      'type': options.type
+    })
+    if (options.type == "scan") {
       wx.setNavigationBarTitle({
         title: '扫一扫',
       })
       this.takePhoto()
     }
-    if (options.type=="input"){
-      this.setData({
-        type: 0
+    if (options.type == "input") {
+      wx.setNavigationBarTitle({
+        title: '查一查',
       })
-    wx.setNavigationBarTitle({
-      title: '查一查',
-    })
     }
     watch.setWatcher(this);
   },
   watch: {
     flush: function(newVal, oldVal) {
       this.updateBooks();
+    },
+    query_complete: function(newVal, oldVal) {
+      var f = true;
+      for (var i = 0; i < newVal.length; i++)
+        if (!newVal[i]) {
+          f = false;
+          break;
+        }
+      if (f) {
+        wx.hideLoading()
+      }
     }
   },
   onReady: function() {
@@ -66,22 +76,57 @@ Page({
   },
   updateBooks() {
     var list = [];
-    for (var i = 0; i < this.data.recommand.length; i++) {
-      if (this.data.recommand[i] != null)
-        list.push(this.data.recommand[i])
+    if (this.data.type == "input") {
+      for (var i = 0; i < this.data.recommend.length; i++) {
+        if (this.data.recommend[i] != null){
+          this.data.recommend[i]["type"] = "search_input"
+          list.push(this.data.recommend[i])
+        }
+      }
+      for (var i = 0; i < this.data.candidate.length; i++) {
+        if (this.data.candidate[i])
+          for (var j = 0; j < this.data.candidate[i].length; j++){
+            this.data.candidate[i][j]["type"] = "search_input"
+            list.push(this.data.candidate[i][j]);
+          }
+      }
+      this.setData({
+        "recommend": list,
+        "hasResult": true
+      })
+    } else {
+      for (var i = 0; i < this.data.recommend.length; i++) {
+        if (this.data.recommend[i] != null)
+          list.push(this.data.recommend[i])
+      }
+      this.setData({
+        "recommend": list,
+        "candidate": this.data.candidate,
+        "hasResult": true
+      })
     }
-    for (var i = 0; i < this.data.candidate.length; i++) {
-      if (this.data.candidate[i])
-        for (var j = 0; j < this.data.candidate[i].length; j++)
-          list.push(this.data.candidate[i][j]);
-    }
+  },
+  updateCheckBox(e) {
+    this.data.recommend[e.detail.index].isFirst = !this.data.recommend[e.detail.index].isFirst
+  },
+  showCandidate(e) {
     this.setData({
-      "searchList": list,
-      "hasResult": true
+      'dialog_visible': e.detail.index
+    })
+    this.selectComponent("#dialog_" + e.detail.index.toString()).setTitle(e.detail.search_string)
+  },
+  closeHandler() {
+    this.setData({
+      'dialog_visible': -1
     })
   },
-  updateCheckBox(e){
-    this.data.searchList[e.detail.index].isFirst = !this.data.searchList[e.detail.index].isFirst
+  exchangeItem(e) {
+    this.data.recommend[e.detail.row_idx]["type"] = "search_candidate";
+    var temp = this.data.recommend[e.detail.row_idx];
+    this.data.candidate[e.detail.row_idx][e.detail.col_idx]["type"] = "search_recommend";
+    this.data.recommend[e.detail.row_idx] = this.data.candidate[e.detail.row_idx][e.detail.col_idx];
+    this.data.candidate[e.detail.row_idx][e.detail.col_idx] = temp;
+    this.data.flush = !this.data.flush
   },
   reset() {
     this.setData({
@@ -93,7 +138,7 @@ Page({
     wx.chooseImage({
       count: 1,
       sizeType: ['original'],
-      sourceType: ['camera'],
+      sourceType: ['camera', 'album'],
       success: res => {
         wx.showLoading({
           title: '上传中',
@@ -119,10 +164,11 @@ Page({
                 'failed': true,
               })
             }
-            setTimeout(wx.hideLoading, 100 * ocrResult.length);
+            //setTimeout(wx.hideLoading, 100 * ocrResult.length);
             for (let i = 0; i < ocrResult.length; i++) {
-              this.data.recommand = new Array(ocrResult.length);
+              this.data.recommend = new Array(ocrResult.length);
               this.data.candidate = new Array(ocrResult.length);
+              this.data.query_complete = new Array(ocrResult.length).fill(false);
               search.search(ocrResult[i].search_string, ocrResult[i].search_words, this, i);
             }
           }
@@ -142,7 +188,7 @@ Page({
   },
   bookshelfAdd() {
     var chosen_books = new Array()
-    var searchList = this.data.searchList
+    var searchList = this.data.recommend
     for (var i = 0; i < searchList.length; i++) {
       if (searchList[i].isFirst && !searchList[i].isAdded) {
         chosen_books.push({
@@ -172,7 +218,7 @@ Page({
           duration: 2000
         })
         this.setData({
-          "searchList": searchList,
+          "recommend": searchList,
         })
         // empty list navigateback
         var f = 1
@@ -192,9 +238,14 @@ Page({
   error(e) {
     console.log(e.detail)
   },
-  input_search(e){
-    this.data.recommand = new Array(1)
+  input_search(e) {
+    this.data.recommend = new Array(1)
     this.data.candidate = new Array(1)
-    search.search(e.detail.search_string,e.detail.search_words,this,0)
+    this.data.query_complete = [false]
+    wx.showLoading({
+      title: '找啊找',
+      //mask: true,
+    })
+    search.search(e.detail.search_string, e.detail.search_words, this, 0,10)
   }
 })
