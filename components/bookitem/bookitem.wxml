@@ -2,7 +2,6 @@
 <block wx:if="{{!isDeleted}}">
   <!-- <navigator url="../bookdetail/bookdetail?current={{infoDic.stringInfoDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress"> -->
   <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress" catchtap='tapHandler'>
-    <image wx:if="{{isPreview}}" class='preview_image' src="{{infoDic.imgUrl}}" catchtap='closePreview'></image>
     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
       <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" catchtap="previewImage" />
     </view>

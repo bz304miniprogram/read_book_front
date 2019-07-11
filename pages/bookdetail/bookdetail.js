@@ -91,15 +91,9 @@ Page({
   },
 
   previewImage: function(){
-    console.log("lalala")
-    this.setData({
-      "isPreview2": true
-    })
-  },
-
-  closePreview: function(){
-    this.setData({
-      "isPreview2": false
+    wx.previewImage({
+      current: 'this.data.infoDic.imgUrl', // 当前显示图片的http链接
+      urls: [this.data.infoDic.imgUrl] // 需要预览的图片http链接列表
     })
   },
 

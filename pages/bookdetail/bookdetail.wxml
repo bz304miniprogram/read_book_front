@@ -9,7 +9,7 @@
       <button class="preview_button" type='primary' size='mini' catchtap='save'>保存分享图</button>
     </view>
   </view> -->
-  <image wx:if="{{isPreview2}}" class='preview_image' src="{{infoDic.imgUrl}}" catchtap='closePreview'></image>
+
   <poster poster-type="detail" id="poster"></poster>
   <view class="page__hd">
     <view class="page__hd__inner">

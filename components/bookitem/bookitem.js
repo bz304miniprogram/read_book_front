@@ -24,7 +24,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isPreview: false,
+
   },
 
   /**
@@ -39,16 +39,12 @@ Component({
   },
   methods: {
     previewImage() {
-      console.log("preview");
-      this.setData({
-        "isPreview": true
+      wx.previewImage({
+        current: 'this.properties.infoDic.imgUrl', // 当前显示图片的http链接
+        urls: [this.properties.infoDic.imgUrl] // 需要预览的图片http链接列表
       })
     },
-    closePreview() {
-      this.setData({
-        'isPreview': false
-      })
-    },
+
     onClickCheckBox() {
       const eventDetail = {
         "index": this.properties.index
