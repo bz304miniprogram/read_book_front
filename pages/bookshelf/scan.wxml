@@ -4,12 +4,12 @@
 
 <!-- <view class='title'>识别结果：</view> -->
 
-<!-- <view class="result_container" wx:if="{{hasResult}}"> -->
+<view class="result_container" wx:if="{{hasResult}}">
 <view class="scan_result" wx:if="{{hasResult}}">
   <block wx:for="{{recommend}}" wx:key="{{recommend.index}}">
     <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" catchshow-candidate="showCandidate" wx:if="{{!item.isAdded}}" />
   </block>
-  <button class='add_button' type="primary" bindtap="bookshelfAdd">添加到我的书架</button>
+  <button class='add_button' type="primary" bindtap="bookshelfAdd">选好了</button>
 
   <block wx:for="{{candidate}}" wx:for-index="row_idx" wx:key="{{candidate.index}}">
     <dialog visible="{{dialog_visible==row_idx}}" id="dialog_{{row_idx}}" catchclose="closeHandler">
@@ -19,7 +19,7 @@
     </dialog>
   </block>
 </view>
-<!-- </view> -->
+</view>
 
 
 <view class="container" wx:if="{{failed && type=='scan'}}">
