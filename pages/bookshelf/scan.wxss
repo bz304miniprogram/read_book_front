@@ -16,13 +16,16 @@
   width: 90%;
 }
 
-.show_photo{
+.view_photo{
   top: 0%;
   width: 100%;
   height: 30%;
   position: fixed;
   left: 0%;
   z-index: 1;
+  display: flex;
+  background: white;
+  justify-content: center;
   /* border: 1px  #fff; */
 }
 
@@ -34,10 +37,14 @@
   top: 30%;
   height:100%;
   width:100%;
-  bottom: 30%;
+  /* bottom: 30%; */
   position: absolute;
-
 } 
+.photo{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 /* .title{
   top: 30%;
