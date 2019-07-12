@@ -147,4 +147,4 @@ function search(search_string, search_words, parent,idx,limit=4) {
 
 module.exports = {
   search: search,
-}
+};

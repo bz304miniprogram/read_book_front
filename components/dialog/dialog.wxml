@@ -1,9 +1,3 @@
-<!--
- * Author: simsir-lin
- * Github: https://github.com/simsir-lin
- * Email: 15986907592@163.com
--->
-
 <view class="dialog-wxapp" wx:if="{{visible}}">
   <view class='dialog-wxapp-mask' style="background: rgba(0, 0, 0, {{opacity}});" catchtouchstart="touchstart" ></view>
   <view class="dialog-wxapp-main" style="height:{{fullscreen ? '100%':'auto'}};{{position == 'center' ? 'top: 50%; transform: translateY(-50%);' : position == 'top' ? 'top:0;' : 'bottom:0;'}}" >

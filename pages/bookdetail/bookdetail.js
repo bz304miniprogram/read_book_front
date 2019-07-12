@@ -146,7 +146,8 @@ Page({
       method: "POST",
       data: {
         "sessionId": app.globalData.sessionId,
-        "webUrl": this.data.infoDic.tags, //temporarily put tag in webUrl
+        "tags": this.data.infoDic.tags,
+        "imgUrl":this.data.infoDic.imgUrl,
         "title": this.data.infoDic.title,
         "readTime": e.detail.readTime
       },

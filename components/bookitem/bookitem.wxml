@@ -1,9 +1,9 @@
 <!--component/bookitem.wxml-->
 <block wx:if="{{!isDeleted}}">
   <!-- <navigator url="../bookdetail/bookdetail?current={{infoDic.stringInfoDic}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress"> -->
-  <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress" catchtap='tapHandler'>
+  <view class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" catchlongpress="onLongPress" catchtap='tapHandler' >
     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-      <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" />
+      <image class="weui-media-box__thumb" mode="aspectFit" src="{{infoDic.imgUrl}}" id="test" />
     </view>
     <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
       <view class="weui-media-box__title">{{infoDic.title}}</view>

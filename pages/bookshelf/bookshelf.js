@@ -37,6 +37,14 @@ Page({
         });
       };
     }
+    if (app.globalData.sessionId) {
+      this.get_bookshelf(app.globalData.sessionId)
+    } else {
+      console.log("this is sessionIdReadyCallBack:")
+      app.sessionIdReadyCallback = res => {
+        this.get_bookshelf(res.sessionId)
+      };
+    }
   },
 
   /**
@@ -50,18 +58,18 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
-    if (this.data.flush) {
-      if (app.globalData.sessionId) {
-        this.get_bookshelf(app.globalData.sessionId)
-      } else {
-        var that = this
-        console.log("this is sessionIdReadyCallBack:")
-        app.sessionIdReadyCallback = res => {
-          that.get_bookshelf(res.sessionId)
-        };
-      }
-      this.data.flush = false;
-    }
+    // if (this.data.flush) {
+    //   if (app.globalData.sessionId) {
+    //     this.get_bookshelf(app.globalData.sessionId)
+    //   } else {
+    //     var that = this
+    //     console.log("this is sessionIdReadyCallBack:")
+    //     app.sessionIdReadyCallback = res => {
+    //       that.get_bookshelf(res.sessionId)
+    //     };
+    //   }
+    //   this.data.flush = false;
+    // }
   },
 
   /**
@@ -82,7 +90,7 @@ Page({
    * Page event handler function--Called when user drop down
    */
   onPullDownRefresh: function() {
-
+    this.get_bookshelf(app.globalData.sessionId)
   },
 
   /**
@@ -135,6 +143,9 @@ Page({
       },
       fail() {
         console.log('get_bookshelf failed')
+      },
+      complete(){
+        wx.stopPullDownRefresh()
       }
     })
   },
