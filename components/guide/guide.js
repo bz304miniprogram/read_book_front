@@ -37,16 +37,8 @@ Component({
           }
         })
       });
-      let promise2 = new Promise(function (resolve, reject) { //请求背景图片
-        wx.getImageInfo({
-          src: '../../pages/images/pure-gray.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
       Promise.all(
-        [promise0, promise1, promise2]
+        [promise0, promise1]
       ).then(res => {
         console.log('begin guide')
         const ctx = wx.createCanvasContext('guide', this) //绑定一个组件
@@ -65,8 +57,6 @@ Component({
 
         ctx.drawImage("../../" + res[1].path, 280, 0, 160, 160)
         ctx.drawImage("../../" + res[0].path, 300, 5, 50, 50)
-
-
         /* 绘制 */
         var that = this
         ctx.draw(true, function () {

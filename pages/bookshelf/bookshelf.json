@@ -1,7 +1,9 @@
 {
+  "enablePullDownRefresh": true, 
+    "backgroundTextStyle": "dark",
   "navigationBarTitleText": "书架",
   "usingComponents": {
-      "book-item": "../../components/bookitem/bookitem",
-      "guide":"../../components/guide/guide"
+    "book-item": "../../components/bookitem/bookitem",
+    "guide": "../../components/guide/guide"
   }
 }

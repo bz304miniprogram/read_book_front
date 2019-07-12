@@ -100,14 +100,6 @@ Component({
         mask: true,
       })
 
-      let promise0 = new Promise(function (resolve, reject) { //请求背景图
-        wx.getImageInfo({
-          src: '../../pages/images/background.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
       let promise1 = new Promise(function (resolve, reject) { //用户头像
         wx.getImageInfo({
           src: src1.avatarUrl,
@@ -138,7 +130,7 @@ Component({
 
       /* 图片获取成功才执行后续代码 */
       Promise.all(
-        [promise0, promise1, promise2, promise3]
+        [promise1, promise2, promise3]
       ).then(res => {
         console.log(res)
         /* 创建 canvas 画布 */
@@ -147,9 +139,9 @@ Component({
         ctx.fillRect(0, 0, 500, 800)
         ctx.draw()
         /* 绘制图像到画布  图片的位置你自己计算好就行 参数的含义看文档 */
-        ctx.drawImage("../../" + res[0].path, 0, 0, 500, 400) //大背景
-        ctx.drawImage(res[2].path, 50, 60, 140, res[2].height / res[2].width * 140) /*书籍图片*/
-        ctx.drawImage(res[3].path, 150, 550, 200, 200); //小程序图片
+        ctx.drawImage('../../pages/images/background.png', 0, 0, 500, 400) //大背景
+        ctx.drawImage(res[1].path, 50, 60, 140, res[1].height / res[1].width * 140) /*书籍图片*/
+        ctx.drawImage(res[2].path, 150, 550, 200, 200); //小程序图片
         /* 绘制文字 位置自己计算 参数自己看文档 */
         ctx.setTextAlign('left') //  位置
         ctx.setFillStyle('white') //  颜色
@@ -175,7 +167,7 @@ Component({
         ctx.setStrokeStyle('white')
         // ctx.stroke();
         // ctx.clip();
-        ctx.drawImage(res[1].path, avatar_x, avatar_y, avatar_width, avatar_width); //微信头像方变园
+        ctx.drawImage(res[0].path, avatar_x, avatar_y, avatar_width, avatar_width); //微信头像方变园
         // ctx.restore();
         ctx.setFillStyle('black')
         ctx.fillText("我正在读我书架上的", avatar_x + 70, avatar_y + 25)
@@ -226,55 +218,8 @@ Component({
         mask: true,
       })
 
-      let promise0 = new Promise(function (resolve, reject) { //请求背景图
-        wx.getImageInfo({
-          src: '../../pages/images/wallhaven-yjje3x.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise1 = new Promise(function (resolve, reject) { //请求图1
-        wx.getImageInfo({
-          src: '../../pages/images/1.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise2 = new Promise(function (resolve, reject) { //请求图2
-        wx.getImageInfo({
-          src: '../../pages/images/2.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise3 = new Promise(function (resolve, reject) { //请求图3
-        wx.getImageInfo({
-          src: '../../pages/images/3.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise4 = new Promise(function (resolve, reject) { //请求图4
-        wx.getImageInfo({
-          src: '../../pages/images/4.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise5 = new Promise(function (resolve, reject) { //请求图5
-        wx.getImageInfo({
-          src: '../../pages/images/5.png',
-          success: function (res) {
-            resolve(res)
-          }
-        })
-      });
-      let promise6 = new Promise(function (resolve, reject) { //头像
+
+      let promise1 = new Promise(function (resolve, reject) { //头像
         wx.getImageInfo({
           src: src1.avatarUrl,
           success: function (res) {
@@ -290,7 +235,7 @@ Component({
       //     }
       //   })
       // });
-      let promise8 = new Promise(function (resolve, reject) { //小程序
+      let promise3 = new Promise(function (resolve, reject) { //小程序
         wx.getImageInfo({
           src: app.globalData.HOST + "/get_wxcode",
           success: res => {
@@ -303,14 +248,14 @@ Component({
       })
       /* 图片获取成功才执行后续代码 */
       Promise.all(
-        [promise0, promise1, promise2, promise3, promise4, promise5, promise6, promise8]
+        [promise1,  promise3]
       ).then(res => {
         const ctx = wx.createCanvasContext('shareImg', this) //绑定一个组件
 
         //构建底板
         ctx.setFillStyle('white')
         ctx.fillRect(0, 0, 500, 800)
-        ctx.drawImage("../../" + res[0].path, 0, 0, 500, 530) //大背景
+        ctx.drawImage("../../pages/images/wallhaven-yjje3x.png", 0, 0, 500, 530) //大背景
 
         //绘制标题
         ctx.setTextAlign('left') //  位置
@@ -328,7 +273,7 @@ Component({
         ctx.fillText('亲爱的' + app.globalData.userInfo.nickName, 250, 70)
         ctx.fillText('这一年你共计阅读了' + infoDic.sum + '分钟', 250, 105)
         ctx.fillText('相当于读了' + infoDic.sum * 400 + '字', 250, 140)
-        ctx.fillText('《' + infoDic.maxTime + '》', 250, 180)
+        ctx.fillText('《' + infoDic.maxTime.title + '》', 250, 180)
         ctx.fillText('是这一年你读过最久的书', 250, 215)
 
         ctx.setTextAlign('left') //  位置
@@ -342,9 +287,16 @@ Component({
         /** 画饼图*/
         // 数据源
         // var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1], infoDic.topTag[5][1]];
-        // var colors = ["#48D1CC", "#C71585", "#F08080", "#6A5ACD", "#6B8E23", "#FFE4B5"];
-        var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1]];
-        var colors = ["#48D1CC", "#C71585", "#F08080", "#6A5ACD", "#6B8E23"];
+        var array =[];
+        for (var i=0;i<6;i++){
+          if (infoDic.topTag[i][0]!=""){
+            array.push(infoDic.topTag[i][1])
+          }
+          else
+            break
+        }
+        var colors = ["#48D1CC", "#C71585", "#F08080", "#6A5ACD", "#6B8E23", "#FFE4B5"];
+        // var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1]];
         var total = 0;
         // 计算总量
         for (var val = 0; val < array.length; val++) {
@@ -381,20 +333,17 @@ Component({
         ctx.setFillStyle('black') //  颜色
         ctx.setFontSize(18) //  字号
         // ctx.textAlign="center"; //文字居中
-
-        ctx.fillText(infoDic.topTag[0][0], 350, 350)
-        ctx.fillText(infoDic.topTag[1][0], 350, 380)
-        ctx.fillText(infoDic.topTag[2][0], 350, 410)
-        ctx.fillText(infoDic.topTag[3][0], 350, 440)
-        ctx.fillText(infoDic.topTag[4][0], 350, 470)
-        // ctx.fillText(infoDic.topTag[5][0], 350, 500)
-        ctx.drawImage("../../" + res[1].path, 315, 335, 18, 18) //图例1
-        ctx.drawImage("../../" + res[2].path, 315, 365, 18, 18) //图例1
-        ctx.drawImage("../../" + res[3].path, 315, 395, 18, 18) //图例1
-        ctx.drawImage("../../" + res[4].path, 315, 425, 18, 18) //图例1
-        ctx.drawImage("../../" + res[5].path, 315, 455, 18, 18) //图例1
-
-
+        var coordinate ={
+          text_x:350,
+          text_y:330,
+          icon_x:315,
+          icon_y:315,
+          icon_s:18
+        }
+        for (var i=0; i<array.length;i++){
+          ctx.fillText(infoDic.topTag[i][0],coordinate.text_x,coordinate.text_y+i*30)
+          ctx.drawImage("../../pages/images/"+(i+1).toString() +".png", coordinate.icon_x,coordinate.icon_y+i*30, coordinate.icon_s, coordinate.icon_s) //图例1
+        }
         console.log(infoDic)
         /* 创建 canvas 画布 */
         //const ctx = wx.createCanvasContext('shareImg', this)
@@ -410,7 +359,7 @@ Component({
         // ctx.drawImage("../../" + res[0].path, 0, 0, 500, 800) //大背景
         // //ctx.drawImage(res[2].path, 50, 60, 140, res[2].height / res[2].width * 140) /*书籍图片*/
         // ctx.drawImage(res[6].path, 150, 550, 50, 50); //用户头像
-        ctx.drawImage(res[7].path, 150, 570, 200, 200); //小程序图
+        ctx.drawImage(res[1].path, 150, 570, 200, 200); //小程序图
 
 
 

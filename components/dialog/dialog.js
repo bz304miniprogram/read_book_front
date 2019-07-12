@@ -51,22 +51,22 @@ Component({
     position: {
       type: String,
       value: 'center',
-      observer: function (newVal) {
-        this.setData({
-          _position: this.checkPosition(newVal) ? newVal : 'center'
-        })
-      }
+      // observer: function (newVal) {
+      //   this.setData({
+      //     _position: this.checkPosition(newVal) ? newVal : 'center'
+      //   })
+      // }
     }
   },
   data: {
     positions: ['center', 'top', 'bottom'],
-    _position: 'center'
+    // _position: 'center'
   },
   lifetimes:{
     attached: function () {
-      this.setData({
-        _position: this.checkPosition(this.data.position) ? this.data.position : 'center'
-      })
+      // this.setData({
+      //   _position: this.checkPosition(this.data.position) ? this.data.position : 'center'
+      // })
     },
     moved: function () {
     },
