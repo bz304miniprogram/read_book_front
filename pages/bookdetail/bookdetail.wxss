@@ -103,3 +103,7 @@ canvas {
   position: fixed;
   z-index: 100;
 }
+
+.detail_button{
+  color: blue;
+}
