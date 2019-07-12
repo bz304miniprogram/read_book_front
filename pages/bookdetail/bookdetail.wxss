@@ -63,9 +63,11 @@ canvas {
   padding-left: 40px;
   padding-right: 40px;
 }
-.space{
+
+.space {
   padding: 40rpx;
 }
+
 .preview {
   width: 100%;
   height: 100%;
@@ -87,10 +89,17 @@ canvas {
   width: 40%;
   position: fixed;
   left: 30%;
-  z-index:100;
-  bottom:5%
+  z-index: 100;
+  bottom: 5%;
 }
 
-.share{
+.share {
   padding-top: 40rpx;
+}
+
+.preview_image {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
 }

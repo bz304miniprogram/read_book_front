@@ -9,9 +9,9 @@ Component({
       type: Object,
     },
     index: Number,
-    col_idx:{
-      type:Number,
-      value:0
+    col_idx: {
+      type: Number,
+      value: 0
     },
     deleteMode: Boolean,
     isDeleted: {
@@ -31,13 +31,20 @@ Component({
    * 组件的方法列表
    */
   lifetimes: {
-    created() {},
-    attached() {},
+    created() { },
+    attached() { },
     detached() {
       // 在组件实例被从页面节点树移除时执行
     },
   },
   methods: {
+    previewImage() {
+      wx.previewImage({
+        current: 'this.properties.infoDic.imgUrl', // 当前显示图片的http链接
+        urls: [this.properties.infoDic.imgUrl] // 需要预览的图片http链接列表
+      })
+    },
+
     onClickCheckBox() {
       const eventDetail = {
         "index": this.properties.index
@@ -49,7 +56,7 @@ Component({
       this.triggerEvent('updatecheckbox', eventDetail, eventOption)
     },
     onLongPress(e) {
-      console.log("this is long press",e,this)
+      console.log("this is long press", e, this)
       if (this.properties.infoDic.type == "bookshelf") {
         this.setData({
           "deleteMode": !this.properties.deleteMode
@@ -89,18 +96,17 @@ Component({
         this.setData(infoDic)
       }
     },
-    getInfoDic(){
+    getInfoDic() {
       return this.properties.infoDic
     },
     tapHandler() {
       if (this.properties.infoDic.type == "search_candidate") {
         this.triggerEvent("exchangeItem", {
           "infoDic": this.properties.infoDic,
-          "row_idx":this.properties.index,
-          "col_idx":this.properties.col_idx
+          "row_idx": this.properties.index,
+          "col_idx": this.properties.col_idx
         })
-      }
-      else {
+      } else {
         wx.navigateTo({
           url: "../bookdetail/bookdetail?current=" + this.properties.infoDic.stringInfoDic,
         })
