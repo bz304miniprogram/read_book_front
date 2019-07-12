@@ -9,6 +9,7 @@
       <button class="preview_button" type='primary' size='mini' catchtap='save'>保存分享图</button>
     </view>
   </view> -->
+
   <poster poster-type="detail" id="poster"></poster>
   <view class="page__hd">
     <view class="page__hd__inner">
@@ -19,7 +20,7 @@
       <view class="page__desc">评分：{{infoDic.rating}}</view>
       <view class='page__desc'>标签：{{infoDic.tags}}</view>
       <view class="page__img">
-        <image src="{{infoDic.imgUrl}}" mode="aspectFit" />
+        <image src="{{infoDic.imgUrl}}" mode="aspectFit" catchtap='previewImage'/>
       </view>
       <view class="page__desc" catchtap='getDetailIntro' wx:if="{{!hasDetailIntro}}">
         简介：{{infoDic.intro}}

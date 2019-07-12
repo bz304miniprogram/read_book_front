@@ -8,6 +8,7 @@ Page({
     generating: false,
     startRead: false,
     hasDetailIntro: false,
+    isPreview2: false,
   },
 
   /**
@@ -87,6 +88,13 @@ Page({
    */
   onReachBottom: function() {
 
+  },
+
+  previewImage: function(){
+    wx.previewImage({
+      current: 'this.data.infoDic.imgUrl', // 当前显示图片的http链接
+      urls: [this.data.infoDic.imgUrl] // 需要预览的图片http链接列表
+    })
   },
 
   /**
