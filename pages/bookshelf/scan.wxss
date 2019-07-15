@@ -37,7 +37,6 @@
   top: 30%;
   height:100%;
   width:100%;
-  /* bottom: 30%; */
   position: absolute;
 } 
 .photo{

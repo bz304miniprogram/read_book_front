@@ -12,6 +12,7 @@ Page({
   openSetting: function() {
     wx.openSetting({
       success: res => {
+        console.log(res)
         console.log("openSetting success")
         //if(res.authSetting['scope:userInfo'])
       }

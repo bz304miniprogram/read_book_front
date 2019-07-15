@@ -1,7 +1,7 @@
 <!--components/poster.wxml-->
 <view wx:if='{{isPreview}}' class='preview' bindtap='hidePreview'>
   <view class="space">
-    <image class="preview_img" src='{{posterUrl}}' mode='widthFix' catchtap='save'></image>
+    <image class="preview_img" src='{{posterUrl}}' mode='widthFix'></image>
   </view>
   <view class='space'>
     <button class="preview_button" type='primary' size='mini' catchtap='save'>保存分享图</button>

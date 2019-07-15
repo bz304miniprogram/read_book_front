@@ -14,6 +14,7 @@ Page({
     type: '',
     dialog_visible: -1,
     photo: '',
+    scaning: true,
   },
   onLoad: function(options) {
     this.setData({

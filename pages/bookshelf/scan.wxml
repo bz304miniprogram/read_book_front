@@ -1,12 +1,13 @@
 <search-bar catchsearch="input_search" wx:if="{{type=='input'}}" />
-<view class='view_photo'>
+<!-- 
+<view wx:if="{{type=='scan'}}" class='view_photo'>
   <image class="photo" src="{{photo}}" mode="aspectFit"></image>
-</view>
+</view> -->
 
 <!-- <view class='title'>识别结果：</view> -->
 
 <view class="result_container" wx:if="{{hasResult}}">
-  <view class="scan_result" wx:if="{{hasResult}}">
+  <view class='{{type=="scan"?"scan_result":""}}' wx:if="{{hasResult}}">
     <block wx:for="{{recommend}}" wx:key="{{recommend.index}}">
       <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" catchshow-candidate="showCandidate" wx:if="{{!item.isAdded}}" />
     </block>
