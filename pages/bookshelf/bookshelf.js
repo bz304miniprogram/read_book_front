@@ -10,7 +10,6 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     bookList: [],
-    flush: true,
   },
 
   /**
@@ -58,18 +57,13 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
-    // if (this.data.flush) {
-    //   if (app.globalData.sessionId) {
-    //     this.get_bookshelf(app.globalData.sessionId)
-    //   } else {
-    //     var that = this
-    //     console.log("this is sessionIdReadyCallBack:")
-    //     app.sessionIdReadyCallback = res => {
-    //       that.get_bookshelf(res.sessionId)
-    //     };
-    //   }
-    //   this.data.flush = false;
-    // }
+    if (app.globalData.userInfo) {
+      console.log(app.globalData.userInfo)
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    }
   },
 
   /**
@@ -154,14 +148,12 @@ Page({
     wx.navigateTo({
       url: 'scan?type=scan'
     })
-    this.data.flush = true;
   },
   input: function() {
     console.log("input")
     wx.navigateTo({
       url: 'scan?type=input'
     })
-    this.data.flush = true;
   },
   getUserInfo: function(e) {
     console.log(e)

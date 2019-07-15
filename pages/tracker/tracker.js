@@ -5,6 +5,7 @@ const app = getApp();
 let chart_week = null;
 let heatChart = null;
 let month_track = null;
+let week_track = null;
 
 function getOption_w(week_track) {
   return {
@@ -139,13 +140,13 @@ function get_month_track(month) {
 function gen_statistic(track) {
   var totalSuccess = 0,
     percent = 0;
-  if (track.readSuccess.length == 7) 
+  if (track.readSuccess.length == 7)
     for (var i = 0; i < track.readSuccess.length; i++) {
       totalSuccess += track.readSuccess[i];
     }
   else
-    for (var i=0;i<track.readSuccess.length;i++){
-      totalSuccess += track.readSuccess[i][2]-0.1
+    for (var i = 0; i < track.readSuccess.length; i++) {
+      totalSuccess += track.readSuccess[i][2] - 0.1
     }
   if (track.successTimes + track.failedTimes != 0)
     percent = 100 * track.successTimes / (track.successTimes + track.failedTimes);
@@ -208,7 +209,7 @@ Page({
         height: height
       });
       canvas.setChart(heatChart);
-      let promise0 = new Promise(function(resolve, reject) {
+      let promise0 = new Promise(function(resolve, reject) { //app.js 中只获取了week_track
         wx.request({
           url: app.globalData.HOST + '/get_month_track',
           method: 'POST',
@@ -233,10 +234,10 @@ Page({
           "statistics": [gen_statistic(app.globalData.week_track), gen_statistic(month_track)]
         })
       });
-      // heatChart.setOption(getOption(app.globalData.week_track));
     });
 
   },
+
   contentChange: function(e) {
     return;
   },
@@ -245,14 +246,15 @@ Page({
     this.setData({
       current: e.currentTarget.dataset.pos
     })
-    var that =this;
-    setTimeout(function(){
+    var that = this;
+    setTimeout(function() {
       console.log("this is tap")
       that.setData({
         current: e.currentTarget.dataset.pos
       })
-    },500)
+    }, 500)
   },
+
   monthChange(e) {
     console.log("this is monthChange");
     this.setData({
@@ -284,5 +286,50 @@ Page({
         "statistics[1]": gen_statistic(month_track)
       })
     });
-  }
+  },
+    // get_and_set(chart_week, heatChart) {
+  //   console.log(chart_week,heatChart)
+  //   let promise0 = new Promise(function(resolve, reject) {
+  //     wx.request({
+  //       url: app.globalData.HOST + '/get_month_track',
+  //       method: 'POST',
+  //       data: {
+  //         'sessionId': app.globalData.sessionId,
+  //         'month': new Date().getMonth() + 1,
+  //       },
+  //       success: res => {
+  //         resolve(res.data.data)
+  //       },
+  //       fail: res => {
+  //         console.log("get month track failed")
+  //       }
+  //     });
+  //   });
+  //   let promise1 = new Promise(function(resolve, reject) {
+  //     wx.request({
+  //       url: app.globalData.HOST + '/get_week_track',
+  //       method: 'POST',
+  //       data: {
+  //         'sessionId': app.globalData.sessionId,
+  //       },
+  //       success: res => {
+  //         resolve(res.data.data)
+  //       },
+  //       fail: res => {
+  //         console.log("get week track failed")
+  //       }
+  //     });
+  //   });
+  //   Promise.all(
+  //     [promise0, promise1]
+  //   ).then(res => {
+  //     month_track = res[0]
+  //     week_track = res[1]
+  //     heatChart.setOption(getOption_m(month_track));
+  //     this.setData({
+  //       "statistics": [gen_statistic(week_track), gen_statistic(month_track)]
+  //     })
+  //     wx.stopPullDownRefresh()
+  //   });
+  // },
 })

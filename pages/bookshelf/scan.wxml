@@ -2,15 +2,16 @@
 
 <image class="show_photo" src="{{photo}}"></image>
 
-<!-- <view class='title'>识别结果：</view> -->
 
-<view class="result_container" wx:if="{{hasResult}}">
+<!-- <view class='title'>识别结果：</view> -->
+<!-- 首选项 -->
 <view class="scan_result" wx:if="{{hasResult}}">
-  <block wx:for="{{recommend}}" wx:key="{{recommend.index}}">
+  <block wx:for="{{searchList}}" wx:key="{{searchList.index}}">
     <book-item index="{{index}}" info-dic='{{item}}' catchupdatecheckbox="updateCheckBox" catchshow-candidate="showCandidate" wx:if="{{!item.isAdded}}" />
   </block>
   <button class='add_button' type="primary" bindtap="bookshelfAdd">选好了</button>
 
+  <!-- 候选项弹出框 -->
   <block wx:for="{{candidate}}" wx:for-index="row_idx" wx:key="{{candidate.index}}">
     <dialog visible="{{dialog_visible==row_idx}}" id="dialog_{{row_idx}}" catchclose="closeHandler">
       <block wx:for="{{item}}" wx:key="{{item.index}}">
@@ -18,7 +19,6 @@
       </block>
     </dialog>
   </block>
-</view>
 </view>
 
 

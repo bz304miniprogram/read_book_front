@@ -132,7 +132,6 @@ Component({
       Promise.all(
         [promise1, promise2, promise3]
       ).then(res => {
-        console.log(res)
         /* 创建 canvas 画布 */
         const ctx = wx.createCanvasContext('shareImg', this)
         ctx.setFillStyle('white')
@@ -248,7 +247,7 @@ Component({
       })
       /* 图片获取成功才执行后续代码 */
       Promise.all(
-        [promise1,  promise3]
+        [promise1, promise3]
       ).then(res => {
         const ctx = wx.createCanvasContext('shareImg', this) //绑定一个组件
 
@@ -287,9 +286,9 @@ Component({
         /** 画饼图*/
         // 数据源
         // var array = [infoDic.topTag[0][1], infoDic.topTag[1][1], infoDic.topTag[2][1], infoDic.topTag[3][1], infoDic.topTag[4][1], infoDic.topTag[5][1]];
-        var array =[];
-        for (var i=0;i<6;i++){
-          if (infoDic.topTag[i][0]!=""){
+        var array = [];
+        for (var i = 0; i < 6; i++) {
+          if (infoDic.topTag[i][0] != "") {
             array.push(infoDic.topTag[i][1])
           }
           else
@@ -333,18 +332,17 @@ Component({
         ctx.setFillStyle('black') //  颜色
         ctx.setFontSize(18) //  字号
         // ctx.textAlign="center"; //文字居中
-        var coordinate ={
-          text_x:350,
-          text_y:330,
-          icon_x:315,
-          icon_y:315,
-          icon_s:18
+        var coordinate = {
+          text_x: 350,
+          text_y: 330,
+          icon_x: 315,
+          icon_y: 315,
+          icon_s: 18
         }
-        for (var i=0; i<array.length;i++){
-          ctx.fillText(infoDic.topTag[i][0],coordinate.text_x,coordinate.text_y+i*30)
-          ctx.drawImage("../../pages/images/"+(i+1).toString() +".png", coordinate.icon_x,coordinate.icon_y+i*30, coordinate.icon_s, coordinate.icon_s) //图例1
+        for (var i = 0; i < array.length; i++) {
+          ctx.fillText(infoDic.topTag[i][0], coordinate.text_x, coordinate.text_y + i * 30)
+          ctx.drawImage("../../pages/images/" + (i + 1).toString() + ".png", coordinate.icon_x, coordinate.icon_y + i * 30, coordinate.icon_s, coordinate.icon_s) //图例1
         }
-        console.log(infoDic)
         /* 创建 canvas 画布 */
         //const ctx = wx.createCanvasContext('shareImg', this)
         // ctx.setFillStyle('white')

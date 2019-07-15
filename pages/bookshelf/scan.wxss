@@ -34,7 +34,6 @@
   top: 30%;
   height:100%;
   width:100%;
-  bottom: 30%;
   position: absolute;
 
 } 
@@ -55,9 +54,10 @@
   width:100%;
 }
 .container{
-  position: fixed;
-  z-index: 100000;
-  background: white;
+  top: 20%;
+  height:100%;
+  width:100%;
+  position: absolute;
 }
 .add_button{
   position: fixed;
