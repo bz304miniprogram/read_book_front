@@ -14,6 +14,10 @@ Component({
     cached: {
       type: Boolean,
       value: false
+    },
+    hasUserInfo: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -28,23 +32,52 @@ Component({
    * 组件的方法列表
    */
   methods: { //调用两个画图
-    genPoster(infoDic) {
-      if (this.properties.cached) {
+    getUserInfo(e) {
+      console.log(e)
+      if (app.globalData.userInfo = e.detail.userInfo) {
         this.setData({
-          'isPreview': true
+          userInfo: e.detail.userInfo,
+          hasUserInfo: true
         })
-        return
-      } else {
-        if (this.properties.posterType == 'detail') {
-          this.genPoster_detail(infoDic)
-          this.properties.cached = true
-        }
-        if (this.properties.posterType == 'annual') {
-          this.genPoster_annual(infoDic)
-          this.properties.cached = true
-        }
+        // this.genPoster
+      }
+      else {
+        app.showToast("授权失败, 可在我的->授权管理中重新授权")
       }
     },
+    genPoster(infoDic) {
+      
+      
+        wx.getSetting({
+          success: res => {
+            console.log(res)
+            if (res.authSetting['scope.userInfo']) {
+              // if (this.properties.cached) {
+              // this.setData({
+              // 'isPreview': true
+              // })
+              // return
+              // } else {
+              if (this.properties.posterType == 'annual') {
+                this.genPoster_annual(infoDic)
+                this.properties.cached = true
+              }
+              if (this.properties.posterType == 'detail') {
+                this.genPoster_detail(infoDic)
+                this.properties.cached = true
+              }
+
+              // }
+            }
+            else {
+              app.showToast("授权失败, 可在我的->授权管理中重新授权")
+              // this.getUserInfo()
+            }
+          }
+        })
+      
+    }
+    ,
     savetoAlbum() {
       var that = this
       wx.saveImageToPhotosAlbum({
@@ -132,6 +165,7 @@ Component({
       Promise.all(
         [promise1, promise2, promise3]
       ).then(res => {
+        
         /* 创建 canvas 画布 */
         const ctx = wx.createCanvasContext('shareImg', this)
         ctx.setFillStyle('white')
@@ -206,8 +240,8 @@ Component({
       if (app.globalData.userInfo == null) {
         app.showToast("获取信息失败，请在我的->授权管理开启信息权限")
         return
-      } else
-        var src1 = app.globalData.userInfo //全局
+      } 
+      var src1 = app.globalData.userInfo //全局
       var src2 = infoDic; //后端请求的内容
       this.setData({
         "generating": true
@@ -218,14 +252,14 @@ Component({
       })
 
 
-      let promise1 = new Promise(function (resolve, reject) { //头像
-        wx.getImageInfo({
-          src: src1.avatarUrl,
-          success: function (res) {
-            resolve(res);
-          }
-        })
-      });
+      // let promise1 = new Promise(function (resolve, reject) { //头像
+      //   wx.getImageInfo({
+      //     src: src1.avatarUrl,
+      //     success: function (res) {
+      //       resolve(res);
+      //     }
+      //   })
+      // });
       // let promise7 = new Promise(function (resolve, reject) {//书封面
       //   wx.getImageInfo({
       //     src: src2.imgUrl,
@@ -247,7 +281,7 @@ Component({
       })
       /* 图片获取成功才执行后续代码 */
       Promise.all(
-        [promise1, promise3]
+        [promise3]
       ).then(res => {
         const ctx = wx.createCanvasContext('shareImg', this) //绑定一个组件
 
@@ -357,7 +391,7 @@ Component({
         // ctx.drawImage("../../" + res[0].path, 0, 0, 500, 800) //大背景
         // //ctx.drawImage(res[2].path, 50, 60, 140, res[2].height / res[2].width * 140) /*书籍图片*/
         // ctx.drawImage(res[6].path, 150, 550, 50, 50); //用户头像
-        ctx.drawImage(res[1].path, 150, 570, 200, 200); //小程序图
+        ctx.drawImage(res[0].path, 150, 570, 200, 200); //小程序图
 
 
 

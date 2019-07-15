@@ -1,6 +1,8 @@
 <search-bar catchsearch="input_search" wx:if="{{type=='input'}}" />
-
-<image class="show_photo" src="{{photo}}"></image>
+<!-- 
+<view wx:if="{{type=='scan'}}" class='view_photo'>
+  <image class="photo" src="{{photo}}" mode="aspectFit"></image>
+</view> -->
 
 
 <!-- <view class='title'>识别结果：</view> -->

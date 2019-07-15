@@ -32,6 +32,9 @@ Component({
       });
     },
     search_trigger: function() {
+      this.setData({
+        'scaning': false
+      })
       var search_string = this.properties.inputVal;
       var search_words = search_string.split(",");
       search_string = search_words.join("+");

@@ -1,2 +1,6 @@
 /* components/searchBar/searchBar.wxss */
 @import "../../weui.wxss";
+
+.weui-search-bar{
+  z-index: 100000
+}
