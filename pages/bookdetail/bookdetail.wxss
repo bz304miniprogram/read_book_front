@@ -105,5 +105,5 @@ canvas {
 }
 
 .detail_button{
-  color: blue
+  color: blue;
 }
