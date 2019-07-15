@@ -1,6 +1,4 @@
 {
-  "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark",
   "navigationBarTitleText": "轨迹",
   "usingComponents": {
     "ec-canvas":"../../components/ec-canvas/ec-canvas"
