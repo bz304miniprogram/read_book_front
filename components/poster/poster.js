@@ -165,7 +165,6 @@ Component({
       Promise.all(
         [promise1, promise2, promise3]
       ).then(res => {
-        console.log(res)
         /* 创建 canvas 画布 */
         const ctx = wx.createCanvasContext('shareImg', this)
         ctx.setFillStyle('white')
@@ -377,7 +376,6 @@ Component({
           ctx.fillText(infoDic.topTag[i][0], coordinate.text_x, coordinate.text_y + i * 30)
           ctx.drawImage("../../pages/images/" + (i + 1).toString() + ".png", coordinate.icon_x, coordinate.icon_y + i * 30, coordinate.icon_s, coordinate.icon_s) //图例1
         }
-        console.log(infoDic)
         /* 创建 canvas 画布 */
         //const ctx = wx.createCanvasContext('shareImg', this)
         // ctx.setFillStyle('white')

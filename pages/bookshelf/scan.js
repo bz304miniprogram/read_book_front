@@ -93,7 +93,7 @@ Page({
           }
       }
       this.setData({
-        "recommend": list,
+        "searchList": list,
         "hasResult": true
       })
     } else {
@@ -102,14 +102,14 @@ Page({
           list.push(this.data.recommend[i])
       }
       this.setData({
-        "recommend": list,
+        "searchList": list,
         "candidate": this.data.candidate,
         "hasResult": true
       })
     }
   },
   updateCheckBox(e) {
-    this.data.recommend[e.detail.index].isFirst = !this.data.recommend[e.detail.index].isFirst
+    this.data.searchList[e.detail.index].isFirst = !this.data.searchList[e.detail.index].isFirst
   },
   showCandidate(e) {
     this.setData({
@@ -123,12 +123,15 @@ Page({
     })
   },
   exchangeItem(e) {
-    this.data.recommend[e.detail.row_idx]["type"] = "search_candidate";
-    var temp = this.data.recommend[e.detail.row_idx];
+    this.data.searchList[e.detail.row_idx]["type"] = "search_candidate";
+    var temp = this.data.searchList[e.detail.row_idx];
     this.data.candidate[e.detail.row_idx][e.detail.col_idx]["type"] = "search_recommend";
-    this.data.recommend[e.detail.row_idx] = this.data.candidate[e.detail.row_idx][e.detail.col_idx];
+    this.data.searchList[e.detail.row_idx] = this.data.candidate[e.detail.row_idx][e.detail.col_idx];
     this.data.candidate[e.detail.row_idx][e.detail.col_idx] = temp;
-    this.data.flush = !this.data.flush
+    this.setData({
+      'searchList':this.data.searchList,
+      'candidate':this.data.candidate
+    })
   },
   reset() {
     this.setData({
@@ -193,7 +196,7 @@ Page({
   },
   bookshelfAdd() {
     var chosen_books = new Array()
-    var searchList = this.data.recommend
+    var searchList = this.data.searchList
     for (var i = 0; i < searchList.length; i++) {
       if (searchList[i].isFirst && !searchList[i].isAdded) {
         chosen_books.push({
@@ -223,7 +226,7 @@ Page({
           duration: 2000
         })
         this.setData({
-          "recommend": searchList,
+          "searchList": searchList,
         })
         // empty list navigateback
         var f = 1

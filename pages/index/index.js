@@ -14,6 +14,16 @@ Page({
       success: res => {
         console.log(res)
         console.log("openSetting success")
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              app.globalData.userInfo = res.userInfo
+              app.globalData.hasUserInfo = true
+            }
+          })
+        }
         //if(res.authSetting['scope:userInfo'])
       }
     })
@@ -27,7 +37,7 @@ Page({
       },
       success: res => {
         console.log(res)
-        if (res.data.data.maxTime == "") {
+        if (res.data.data.sum == 0) {
           app.showToast("选择一本书开始读吧")
           return
         }
