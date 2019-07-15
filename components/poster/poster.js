@@ -165,6 +165,7 @@ Component({
       Promise.all(
         [promise1, promise2, promise3]
       ).then(res => {
+        
         /* 创建 canvas 画布 */
         const ctx = wx.createCanvasContext('shareImg', this)
         ctx.setFillStyle('white')
